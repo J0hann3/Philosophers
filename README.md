@@ -19,11 +19,13 @@ States of thread:
 - Blocked
 
 Compilation:
--> gcc multithread.c -lpthread
+-> gcc -fsanitize=thread -g multithread.c -lpthread
+valgrind --tool=helgrind ./a.out ->error of thread Helgrind
+valgrind --tool=drd ./a.out ->error of thread DRD
 
 PTHREAD_THREADS_MAX -> number of thread max
 ATTENTION: DEAD LOCK -> kill a thread before unlock a mutex
-
+					-> wait for a mutex to unlock that also wait for a other mutex -> infini
 PROCESS
 
 Process properties :

@@ -6,55 +6,70 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/11 18:52:56 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/11 20:10:38 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*\*/
 void	*philosophers(void	*p)
 {
-	// t_mutex	*test = (t_mutex *)p;
+	t_mutex *philo;
+	t_time	last_meal;
 
-	pthread_mutex_lock(&((t_mutex *)p)->mutex);
-	printf("CREATE THREAD, COUNT : %d\n", ((t_mutex *)p)->count);
-	pthread_mutex_unlock(&((t_mutex *)p)->mutex);
-	usleep(200);
-	pthread_mutex_lock(&((t_mutex *)p)->mutex);
-	((t_mutex *)p)->count = ((t_mutex *)p)->count + 200;
-	printf("FINISH SLEEP, COUNT : %d\n", (((t_mutex *)p)->count));
-	pthread_mutex_unlock(&((t_mutex *)p)->mutex);
+	if (gettimeofday(&last_meal, NULL) != 0)
+	philo = (t_mutex *)p;
+	printf("CREATE PHILO\n");
+	// Eat
+	usleep(philo->time_eat);
+	// Think
+
+	// Sleep
+	usleep(philo->time_sleep);
 	return (p);
 }
 
 int	main(int argc, char **argv)
 {
 	int				i;
-	pthread_t		philo[3];
 	t_mutex			mutex;
-	void			*res;
 
-	(void)argc;
-	(void)argv;
-	mutex.count = 0;
+	if (parsing(argc, argv, &mutex) == -1)
+		return (write(2, "Error\n",5), 1);
 	i = 0;
-	pthread_mutex_init(&mutex.mutex, NULL);
-	printf("Before Thread\n");
-	while (i < 3)
+	mutex.mutex_fork = malloc(sizeof(pthread_mutex_t) * mutex.number_philo);
+	if (mutex.mutex_fork == NULL)
+		return (1);
+	mutex.philo = malloc(sizeof(pthread_mutex_t) * mutex.number_philo);
+	if (mutex.philo == NULL)
+		return (1);
+	while (i < mutex.number_philo)
 	{
-		pthread_create(&(philo[i]), NULL, philosophers, (void *)&(mutex));
+		pthread_mutex_init(&mutex.mutex_fork[i], NULL);
+		++i;
+	}
+	pthread_mutex_init(&mutex.mutex_printf, NULL);
+	i = 0;
+	while (i < mutex.number_philo)
+	{
+		pthread_create(&(mutex.philo[i]), NULL, philosophers, (void *)&(mutex));
 		++i;
 	}
 	i = 0;
-	while (i < 3)
+	while (i < mutex.number_philo)
 	{
-		pthread_join(philo[i], &res);
-		pthread_mutex_lock(&((t_mutex *)res)->mutex);
-		printf("DELETE THREAD, return value : %d\n", *(int *)res);
-		pthread_mutex_unlock(&((t_mutex *)res)->mutex);
+		pthread_join(mutex.philo[i], NULL);
+		printf("KILL PHILO\n");
 		++i;
 	}
-	printf("After Thread\n");
-	pthread_mutex_destroy(&mutex.mutex);
+	i = 0;
+	while (i < mutex.number_philo)
+	{
+		pthread_mutex_destroy(&mutex.mutex_fork[i]);
+		++i;
+	}
 	return (0);
 }
+
+/**/

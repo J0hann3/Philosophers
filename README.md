@@ -9,12 +9,20 @@ Different types of threads:
 - Hybrid threads
 
 Thread properties:
-- Threads shares instruction, global, and heap regions. However, it has its register and stack and counter.
+- Threads shares instruction, global, and heap regions. However, it has its register and stack(pile) and counter.
+- share only with theeir peer thread within a process
+- Threads need to be synchronized in order to avoid unexpected scenarios
 
 States of thread:
 - Running
 - Ready
 - Blocked
+
+Compilation:
+-> gcc multithread.c -lpthread
+
+PTHREAD_THREADS_MAX -> number of thread max
+ATTENTION: DEAD LOCK -> kill a thread before unlock a mutex
 
 PROCESS
 
@@ -35,7 +43,10 @@ Multitasking:
 - Child process
 - Parent process (main process)
 
-fork() -> create process
+fork() -> create process -> separate system calls
 
 
 context switch ??
+data segment : which variables are contain in it ??
+concurrency or parallelism CPU
+mutex ??

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:04:29 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/11 19:18:39 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/13 14:27:18 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ int	parsing(int argc, char **argv, t_mutex *mutex)
 		if (mutex->number_eat == -1)
 			return (-1);
 	}
+	return (1);
 }

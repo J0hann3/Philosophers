@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/13 14:25:55 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/13 20:20:55 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ HEADERS_LIST = philosophers.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-SRC_LIST = fill_print.c ft_atoi.c ft_strdup.c parsing.c philosophers.c
+SRC_LIST = action_philo.c  fill_print.c  free_str.c  ft_atoi.c  ft_strdup.c \
+			n_time.c  parsing.c  philosophers.c time.c
 SRC_DIR = ./src/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 

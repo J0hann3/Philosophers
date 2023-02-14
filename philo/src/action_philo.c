@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:36:53 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/13 20:23:22 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/14 12:17:07 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	action_philo(t_mutex *philo, int nb, struct timeval *begin)
 	pthread_mutex_lock(&philo->mutex_fork[fork[1]]);
 	
 	pthread_mutex_lock(&philo->mutex_printf);
-	printf("%d %d %s left : %d	right : %d\n", ft_time(begin), nb, philo->str[e_fork],
+	printf("%d %d %s left : %d	right : %d\n", ft_time(philo->time_begin), nb, philo->str[e_fork],
 			fork[0], fork[1]);
 	pthread_mutex_unlock(&philo->mutex_printf);
 
 	// Eat
 	pthread_mutex_lock(&philo->mutex_printf);
 	gettimeofday(&time, NULL);
-	printf("%d %d %s\n",ft_time(begin), nb, philo->str[e_eat]);
+	printf("%d %d %s\n",ft_time(philo->time_begin), nb, philo->str[e_eat]);
 	pthread_mutex_unlock(&philo->mutex_printf);
 	
 	usleep(philo->time_eat * 1000);
@@ -48,7 +48,7 @@ void	action_philo(t_mutex *philo, int nb, struct timeval *begin)
 	// Sleep
 	pthread_mutex_lock(&philo->mutex_printf);
 	gettimeofday(&time, NULL);
-	printf("%d %d %s\n",ft_time(begin), nb, philo->str[e_sleep]);
+	printf("%d %d %s\n",ft_time(philo->time_begin), nb, philo->str[e_sleep]);
 	pthread_mutex_unlock(&philo->mutex_printf);
 	
 	usleep(philo->time_sleep * 1000);
@@ -56,6 +56,6 @@ void	action_philo(t_mutex *philo, int nb, struct timeval *begin)
 	// Think
 	pthread_mutex_lock(&philo->mutex_printf);
 	gettimeofday(&time, NULL);
-	printf("%d %d %s\n",ft_time(begin), nb, philo->str[e_think]);
+	printf("%d %d %s\n",ft_time(philo->time_begin), nb, philo->str[e_think]);
 	pthread_mutex_unlock(&philo->mutex_printf);
 }

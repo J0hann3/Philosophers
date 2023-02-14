@@ -16,6 +16,8 @@ States of thread:
 - Ready
 - Blocked
 
+Static element not safe to use with thread
+
 PROCESS
 
 Process properties :

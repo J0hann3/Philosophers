@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/13 20:21:51 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/14 12:16:35 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 typedef struct s_mutex
 {
+	int				time_begin;
 	int				time_die;
 	int				time_sleep;
 	int				time_eat;

@@ -18,6 +18,8 @@ States of thread:
 - Ready
 - Blocked
 
+Static element not safe to use with thread
+
 Compilation:
 -> gcc -fsanitize=thread -g multithread.c -lpthread
 valgrind --tool=helgrind ./a.out ->error of thread Helgrind

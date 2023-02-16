@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/13 20:11:04 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/14 12:18:30 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ void	*philosophers(void	*p)
 {
 	t_mutex *philo;
 	int				nb;
-	struct timeval	last_meal;
 
 	philo = (t_mutex *)p;
 	pthread_mutex_lock(&philo->mutex_index);
 	(philo->index)++;
 	nb = philo->index;
 	pthread_mutex_unlock(&philo->mutex_index);
-	gettimeofday(&last_meal, NULL);
+	gettimeofday(&philo->time_begin, NULL);
 	if (philo->number_eat == -1)
-		infini_time(philo, nb, &last_meal);
+		infini_time(philo, nb, &philo->time_begin);
 	else
-		n_time(philo, nb, &last_meal);
+		n_time(philo, nb, &philo->time_begin);
 	return (NULL);
 }
 

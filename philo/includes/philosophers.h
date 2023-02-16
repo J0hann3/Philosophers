@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/16 13:23:17 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/16 18:08:26 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,25 @@ void			fill_print(char **str);
 // Parsing
 int				parsing(int argc, char **argv, t_mutex *mutex);
 
+// Action
+void			ft_eat(t_mutex *philo, int nb, struct timeval *last);
+void			ft_sleep(t_mutex *philo, int nb, struct timeval *last);
+void			ft_think(t_mutex *philo, int nb);
+void			ft_find_fork(t_mutex *philo, int nb, struct timeval *last);
+
 void			infini_time(t_mutex *philo, int nb);
 void			n_time(t_mutex *philo, int nb);
-struct timeval	*action_philo(t_mutex *philo, int nb, struct timeval *begin);
+void			action_philo(t_mutex *philo, int nb, struct timeval *begin);
 int				ft_time(struct timeval *begin);
+void			ft_usleep(long time, long last_meal, t_mutex *philo);
+long			time_conv(struct timeval *time);
+long			timestamp(void);
+int				ft_init_malloc(t_mutex *mutex);
+void			ft_init_mutex(t_mutex *mutex);
+void			ft_destroy(t_mutex *mutex);
+void			ft_create_thread(t_mutex *mutex);
+void			*philosophers(void	*p);
+
+
 
 #endif

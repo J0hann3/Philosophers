@@ -6,34 +6,29 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:33:55 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/16 13:06:23 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:48:31 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	n_time(t_mutex *philo, int nb)
+void	n_time(t_rules *rules, t_philo *philo)
 {
 	int				i;
-	struct timeval	last_meal;
 
 	i = 0;
-	last_meal = *(philo->time_begin);
-	while (i < philo->number_eat)
+	while (i < rules->number_eat)
 	{
-		action_philo(philo, nb, &last_meal);
+		action_philo(rules, philo);
 		++i;
 	}
 	
 }
 
-void	infini_time(t_mutex *philo, int nb)
+void	infini_time(t_rules *rules, t_philo *philo)
 {
-	struct timeval	last_meal;
-
-	last_meal = *(philo->time_begin);
-	while (1)
+	while (philo->is_died != 1)
 	{
-	action_philo(philo, nb, &last_meal);
+		action_philo(rules, philo);
 	}
 }

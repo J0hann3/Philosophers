@@ -6,13 +6,13 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/16 17:58:17 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/16 18:27:23 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_init_malloc(t_mutex *mutex)
+int	ft_init_malloc(t_rules *mutex)
 {
 	mutex->str = malloc(sizeof(char *) * 5);
 	mutex->mutex_fork = malloc(sizeof(pthread_mutex_t) * mutex->number_philo);
@@ -30,7 +30,7 @@ int	ft_init_malloc(t_mutex *mutex)
 	return (0);
 }
 
-void	ft_init_mutex(t_mutex *mutex)
+void	ft_init_rules(t_rules *mutex)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ void	ft_init_mutex(t_mutex *mutex)
 	pthread_mutex_init(&mutex->mutex_index, NULL);
 }
 
-void	ft_create_thread(t_mutex *mutex)
+void	ft_create_thread(t_rules *mutex)
 {
 	int	i;
 
@@ -56,7 +56,7 @@ void	ft_create_thread(t_mutex *mutex)
 	}
 }
 
-void	ft_destroy(t_mutex *mutex)
+void	ft_destroy(t_rules *mutex)
 {
 	int	i;
 	

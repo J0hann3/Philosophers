@@ -6,13 +6,13 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:04:29 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/13 16:31:24 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/16 18:27:23 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	parsing(int argc, char **argv, t_mutex *mutex)
+int	parsing(int argc, char **argv, t_rules *mutex)
 {
 	if (argc < 5 || argc > 6)
 		return (-1);

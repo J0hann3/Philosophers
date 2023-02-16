@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/16 18:08:26 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:48:45 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <string.h>
 
-typedef struct s_mutex
+typedef struct s_rules
 {
 	struct timeval	*time_begin;
 	int				time_die;
@@ -34,7 +34,7 @@ typedef struct s_mutex
 	pthread_mutex_t	mutex_index;
 	pthread_mutex_t	mutex_printf;
 	pthread_t		*philo;			// Not sure it's usefull in the struct
-}	t_mutex;
+}	t_rules;
 
 enum e_print
 {
@@ -44,6 +44,16 @@ enum e_print
 	e_think,
 	e_die,
 };
+
+typedef struct	s_philo
+{
+	int				nb;
+	short			is_died;
+	enum e_print	last_action;
+	struct timeval	*last_meal;
+	int				fork_1;
+	int				fork_2;
+}	t_philo;
 
 // typedef struct s_time
 // {
@@ -60,25 +70,26 @@ size_t			ft_strlen(const char *s);
 void			fill_print(char **str);
 
 // Parsing
-int				parsing(int argc, char **argv, t_mutex *mutex);
+int				parsing(int argc, char **argv, t_rules *mutex);
 
 // Action
-void			ft_eat(t_mutex *philo, int nb, struct timeval *last);
-void			ft_sleep(t_mutex *philo, int nb, struct timeval *last);
-void			ft_think(t_mutex *philo, int nb);
-void			ft_find_fork(t_mutex *philo, int nb, struct timeval *last);
+void			ft_eat(t_rules *rules, t_philo *philo);
+void			ft_sleep(t_rules *rules, t_philo *philo);
+void			ft_think(t_rules *rules, t_philo *philo);
+void			ft_find_fork(t_rules *rules, t_philo *philo);
+void			ft_died(t_rules *rules, t_philo *philo);
 
-void			infini_time(t_mutex *philo, int nb);
-void			n_time(t_mutex *philo, int nb);
-void			action_philo(t_mutex *philo, int nb, struct timeval *begin);
-int				ft_time(struct timeval *begin);
-void			ft_usleep(long time, long last_meal, t_mutex *philo);
+void			infini_time(t_rules *rules, t_philo *philo);
+void			n_time(t_rules *rules, t_philo *philo);
+void			action_philo(t_rules *rules, t_philo *philo);
+long			ft_time(struct timeval *begin);
+void			ft_usleep(long time, t_philo *philo, t_rules *rules);
 long			time_conv(struct timeval *time);
 long			timestamp(void);
-int				ft_init_malloc(t_mutex *mutex);
-void			ft_init_mutex(t_mutex *mutex);
-void			ft_destroy(t_mutex *mutex);
-void			ft_create_thread(t_mutex *mutex);
+int				ft_init_malloc(t_rules *mutex);
+void			ft_init_rules(t_rules *mutex);
+void			ft_destroy(t_rules *mutex);
+void			ft_create_thread(t_rules *mutex);
 void			*philosophers(void	*p);
 
 

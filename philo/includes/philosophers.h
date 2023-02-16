@@ -6,23 +6,23 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/14 12:16:35 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/16 13:23:17 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+# include <pthread.h>
+# include <sys/time.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <pthread.h>
 # include <string.h>
-# include <sys/time.h>
 
 typedef struct s_mutex
 {
-	int				time_begin;
+	struct timeval	*time_begin;
 	int				time_die;
 	int				time_sleep;
 	int				time_eat;
@@ -52,19 +52,19 @@ enum e_print
 // }	t_time;
 
 // Utils
-int		ft_atoi(const char *str);
-char	*ft_strdup(const char *s);
-void	free_str(char **res);
-size_t	ft_strlen(const char *s);
+int				ft_atoi(const char *str);
+char			*ft_strdup(const char *s);
+void			free_str(char **res);
+size_t			ft_strlen(const char *s);
 
-void	fill_print(char **str);
+void			fill_print(char **str);
 
 // Parsing
-int		parsing(int argc, char **argv, t_mutex *mutex);
+int				parsing(int argc, char **argv, t_mutex *mutex);
 
-void	infini_time(t_mutex *philo, int nb, struct timeval *begin);
-void	action_philo(t_mutex *philo, int nb, struct timeval *begin);
-void	n_time(t_mutex *philo, int nb, struct timeval *begin);
-int		ft_time(struct timeval *begin);
+void			infini_time(t_mutex *philo, int nb);
+void			n_time(t_mutex *philo, int nb);
+struct timeval	*action_philo(t_mutex *philo, int nb, struct timeval *begin);
+int				ft_time(struct timeval *begin);
 
 #endif

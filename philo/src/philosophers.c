@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/14 12:18:30 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/16 13:31:53 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	*philosophers(void	*p)
 	(philo->index)++;
 	nb = philo->index;
 	pthread_mutex_unlock(&philo->mutex_index);
-	gettimeofday(&philo->time_begin, NULL);
+	// printf("time : %ld\n", (philo->time_begin)->tv_usec / 1000 + (philo->time_begin)->tv_sec * 1000);
 	if (philo->number_eat == -1)
-		infini_time(philo, nb, &philo->time_begin);
+		infini_time(philo, nb);
 	else
-		n_time(philo, nb, &philo->time_begin);
+		n_time(philo, nb);
 	return (NULL);
 }
 
@@ -43,11 +43,13 @@ int	main(int argc, char **argv)
 	mutex.str = malloc(sizeof(char *) * 5);
 	mutex.mutex_fork = malloc(sizeof(pthread_mutex_t) * mutex.number_philo);
 	mutex.philo = malloc(sizeof(pthread_mutex_t) * mutex.number_philo);
-	if (mutex.philo == NULL || mutex.mutex_fork == NULL || mutex.str == NULL)
+	mutex.time_begin = malloc(sizeof(struct timeval));
+	if (mutex.philo == NULL || mutex.mutex_fork == NULL || mutex.str == NULL || mutex.time_begin == NULL)
 	{
 		free(mutex.str);
 		free(mutex.mutex_fork);
 		free(mutex.philo);
+		free(mutex.time_begin);
 		return (1);
 	}
 	fill_print(mutex.str);
@@ -61,6 +63,7 @@ int	main(int argc, char **argv)
 	pthread_mutex_init(&mutex.mutex_printf, NULL);
 	pthread_mutex_init(&mutex.mutex_index, NULL);
 	// Create thread
+	gettimeofday(mutex.time_begin, NULL);
 	i = 0;
 	while (i < mutex.number_philo)
 	{
@@ -85,6 +88,7 @@ int	main(int argc, char **argv)
 	pthread_mutex_destroy(&mutex.mutex_index);
 	free(mutex.mutex_fork);
 	free(mutex.philo);
+	free(mutex.time_begin);
 	free_str(mutex.str);
 	return (0);
 }

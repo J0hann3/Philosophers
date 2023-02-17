@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:33:55 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/17 13:36:01 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:03:21 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	n_time(t_rules *rules, t_philo *philo)
 
 	i = 0;
 	pthread_mutex_lock(&rules->mutex_died);
-	while (rules->is_died != 1 && i < rules->number_eat)
+	while (rules->is_died != 1 && i < (rules->number_eat * 2))
 	{
 		pthread_mutex_unlock(&rules->mutex_died);
 		action_philo(rules, philo);

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/17 13:32:53 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/17 18:25:55 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ int	ft_init_malloc(t_rules *mutex)
 {
 	mutex->str = malloc(sizeof(char *) * 5);
 	mutex->mutex_fork = malloc(sizeof(pthread_mutex_t) * mutex->number_philo);
+	mutex->fork = malloc(sizeof(int) * mutex->number_philo);
 	mutex->philo = malloc(sizeof(pthread_t) * mutex->number_philo);
-	if (mutex->philo == NULL || mutex->mutex_fork == NULL || mutex->str == NULL)
+	if (mutex->philo == NULL || mutex->mutex_fork == NULL || mutex->str == NULL || mutex->fork == NULL)
 	{
 		free(mutex->str);
 		free(mutex->mutex_fork);
 		free(mutex->philo);
+		free(mutex->fork);
 		return (1);
 	}
 	fill_print(mutex->str);
@@ -70,5 +72,6 @@ void	ft_destroy(t_rules *mutex)
 	pthread_mutex_destroy(&mutex->mutex_died);
 	free(mutex->mutex_fork);
 	free(mutex->philo);
+	free(mutex->fork);
 	free_str(mutex->str);
 }

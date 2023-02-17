@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/17 15:16:50 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/17 19:07:10 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat)
 	pthread_mutex_lock(&rules->mutex_died);
 	if (rules->is_died != 1)
 	{
-		if (etat == e_die)
-			rules->is_died = 1;
 		pthread_mutex_unlock(&rules->mutex_died);
 		pthread_mutex_lock(&rules->mutex_printf);
 		printf("%ld %d %s\n",ft_time(&rules->time_begin), philo->nb, rules->str[etat]);

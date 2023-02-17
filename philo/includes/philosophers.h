@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/17 13:32:13 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/17 17:54:28 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_rules
 	int				number_philo;
 	int				index;
 	char			**str;
+	int				*fork;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	mutex_index;
 	pthread_mutex_t	mutex_died;
@@ -50,10 +51,10 @@ enum e_print
 typedef struct	s_philo
 {
 	int				nb;
-	enum e_print	last_action;
-	struct timeval	last_meal;
 	int				fork_1;
 	int				fork_2;
+	enum e_print	last_action;
+	struct timeval	last_meal;
 }	t_philo;
 
 // typedef struct s_time

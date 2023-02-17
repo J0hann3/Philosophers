@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/16 19:48:45 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/17 13:32:13 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 
 typedef struct s_rules
 {
-	struct timeval	*time_begin;
+	short			is_died;
+	struct timeval	time_begin;
 	int				time_die;
 	int				time_sleep;
 	int				time_eat;
@@ -32,6 +33,7 @@ typedef struct s_rules
 	char			**str;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	mutex_index;
+	pthread_mutex_t	mutex_died;
 	pthread_mutex_t	mutex_printf;
 	pthread_t		*philo;			// Not sure it's usefull in the struct
 }	t_rules;
@@ -48,17 +50,16 @@ enum e_print
 typedef struct	s_philo
 {
 	int				nb;
-	short			is_died;
 	enum e_print	last_action;
-	struct timeval	*last_meal;
+	struct timeval	last_meal;
 	int				fork_1;
 	int				fork_2;
 }	t_philo;
 
 // typedef struct s_time
 // {
-// 	time_t		tv_sec;		/* secondes */
-// 	suseconds_t	tv_usec;	/* microsecondes */
+// 	time_t		tv_sec;		/* secondes */ long long
+// 	suseconds_t	tv_usec;	/* microsecondes */ long long
 // }	t_time;
 
 // Utils
@@ -91,7 +92,7 @@ void			ft_init_rules(t_rules *mutex);
 void			ft_destroy(t_rules *mutex);
 void			ft_create_thread(t_rules *mutex);
 void			*philosophers(void	*p);
-
+void			ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 
 
 #endif

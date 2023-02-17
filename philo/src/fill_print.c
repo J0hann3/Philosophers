@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/13 14:20:09 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/17 15:16:50 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,20 @@ void	fill_print(char **str)
 	str[2] = ft_strdup("is sleeping");
 	str[3] = ft_strdup("is thinking");
 	str[4] = ft_strdup("died");
+}
+
+void	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat)
+{
+	pthread_mutex_lock(&rules->mutex_died);
+	if (rules->is_died != 1)
+	{
+		if (etat == e_die)
+			rules->is_died = 1;
+		pthread_mutex_unlock(&rules->mutex_died);
+		pthread_mutex_lock(&rules->mutex_printf);
+		printf("%ld %d %s\n",ft_time(&rules->time_begin), philo->nb, rules->str[etat]);
+		pthread_mutex_unlock(&rules->mutex_printf);
+	}
+	else
+		pthread_mutex_unlock(&rules->mutex_died);
 }

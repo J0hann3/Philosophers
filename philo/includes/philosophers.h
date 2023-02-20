@@ -6,18 +6,18 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/17 17:54:28 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/20 17:57:49 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+# include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <string.h>
 
 typedef struct s_rules
@@ -84,16 +84,16 @@ void			ft_died(t_rules *rules, t_philo *philo);
 void			infini_time(t_rules *rules, t_philo *philo);
 void			n_time(t_rules *rules, t_philo *philo);
 void			action_philo(t_rules *rules, t_philo *philo);
-long			ft_time(struct timeval *begin);
-void			ft_usleep(long time, t_philo *philo, t_rules *rules);
+long			ft_time(struct timeval *begin, struct timeval now);
+void			ft_usleep(struct timeval now, long time, t_philo *philo, t_rules *rules);
 long			time_conv(struct timeval *time);
-long			timestamp(void);
+struct timeval	timestamp(void);
 int				ft_init_malloc(t_rules *mutex);
-void			ft_init_rules(t_rules *mutex);
+int				ft_init_rules(t_rules *mutex);
 void			ft_destroy(t_rules *mutex);
-void			ft_create_thread(t_rules *mutex);
+int				ft_create_thread(t_rules *mutex);
 void			*philosophers(void	*p);
-void			ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
+struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 
 
 #endif

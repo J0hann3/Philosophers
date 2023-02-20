@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/17 19:07:10 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/20 16:44:26 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@ void	fill_print(char **str)
 	str[4] = ft_strdup("died");
 }
 
-void	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat)
+struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat)
 {
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
 	pthread_mutex_lock(&rules->mutex_died);
 	if (rules->is_died != 1)
 	{
-		pthread_mutex_unlock(&rules->mutex_died);
+		// pthread_mutex_unlock(&rules->mutex_died);
 		pthread_mutex_lock(&rules->mutex_printf);
-		printf("%ld %d %s\n",ft_time(&rules->time_begin), philo->nb, rules->str[etat]);
+		printf("%ld %d %s\n",ft_time(&rules->time_begin, time), philo->nb, rules->str[etat]);
 		pthread_mutex_unlock(&rules->mutex_printf);
 	}
-	else
-		pthread_mutex_unlock(&rules->mutex_died);
+	pthread_mutex_unlock(&rules->mutex_died);
+	return (time);
 }

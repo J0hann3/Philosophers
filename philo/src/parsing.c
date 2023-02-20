@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:04:29 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/16 18:27:23 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/20 17:37:31 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	parsing(int argc, char **argv, t_rules *mutex)
 	if (mutex->time_die == -1)
 		return (-1);
 	mutex->time_eat = ft_atoi(argv[3]);
-	if (mutex->time_die == -1)
+	if (mutex->time_eat == -1)
 		return (-1);
 	mutex->time_sleep = ft_atoi(argv[4]);
-	if (mutex->time_die == -1)
+	if (mutex->time_sleep == -1)
 		return (-1);
 	if (argc == 6)
 	{

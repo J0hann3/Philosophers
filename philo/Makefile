@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/17 16:27:43 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/20 16:19:19 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = philosophers
 NAME_DEBUG = philosophers_debug
 
 CC = gcc
-CFLAGS =  -Wall -Werror -Wextra -g3
-DEBUG = -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -Ofast
+DEBUG = -g -fsanitize=thread
 LFLAGS = -lpthread
 INCLUDES = -I$(HEADERS_DIR)
 
@@ -54,7 +54,7 @@ $(OBJ_DIR):
 debug:	$(NAME_DEBUG)
 
 $(NAME_DEBUG):	$(OBJ_DIR_DEBUG) $(OBJ_DEBUG)
-	$(CC) $(INCLUDES) $(LFLAGS) $(OBJ_DEBUG) -o $(NAME_DEBUG)
+	$(CC) $(INCLUDES) $(DEBUG) $(LFLAGS) $(OBJ_DEBUG) -o $(NAME_DEBUG)
 
 $(OBJ_DIR_DEBUG)%.o:	$(SRC_DIR)%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(DEBUG) -c $(INCLUDES) $< -o $@

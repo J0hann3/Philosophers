@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/20 18:02:19 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/21 15:48:55 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ int	main(int argc, char **argv)
 		return (1);
 	memset(mutex.fork, 0, sizeof(int) * mutex.number_philo);
 	if (ft_init_rules(&mutex) == 1)
-		return (1);
+		return (error(&mutex), 1);
 	gettimeofday(&mutex.time_begin, NULL);
 	if (ft_create_thread(&mutex) == 1)
-		return (1);
+		return (error(&mutex), 1);
 	while (i < mutex.number_philo)
 	{
 		if (pthread_join(mutex.philo[i], NULL) != 0)
 		{
 			printf("Error : Failed to join thread\n");
-			return (1);
+			return (error(&mutex), 1);
 		}
 		++i;
 	}

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/20 17:57:49 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/21 15:46:24 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char			*ft_strdup(const char *s);
 void			free_str(char **res);
 size_t			ft_strlen(const char *s);
 
-void			fill_print(char **str);
+int				fill_print(char **str);
 
 // Parsing
 int				parsing(int argc, char **argv, t_rules *mutex);
@@ -94,6 +94,7 @@ void			ft_destroy(t_rules *mutex);
 int				ft_create_thread(t_rules *mutex);
 void			*philosophers(void	*p);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
+void			error(t_rules *mutex);
 
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/20 16:19:19 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/21 17:43:49 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philosophers
 NAME_DEBUG = philosophers_debug
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Ofast
+CFLAGS = -Wall -Werror -Wextra -g
 DEBUG = -g -fsanitize=thread
 LFLAGS = -lpthread
 INCLUDES = -I$(HEADERS_DIR)
@@ -25,7 +25,7 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 SRC_LIST = action_philo.c	fill_print.c	ft_usleep.c	n_time.c	time.c \
 			free_str.c	ft_strdup.c	parsing.c \
-			ft_atoi.c	init.c	philosophers.c
+			ft_atoi.c	init.c	philosophers.c check_death.c
 
 SRC_DIR = ./src/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
@@ -57,7 +57,7 @@ $(NAME_DEBUG):	$(OBJ_DIR_DEBUG) $(OBJ_DEBUG)
 	$(CC) $(INCLUDES) $(DEBUG) $(LFLAGS) $(OBJ_DEBUG) -o $(NAME_DEBUG)
 
 $(OBJ_DIR_DEBUG)%.o:	$(SRC_DIR)%.c $(HEADERS)
-	$(CC) $(CFLAGS) $(DEBUG) -c $(INCLUDES) $< -o $@
+	$(CC) $(DEBUG) -c $(INCLUDES) $< -o $@
 
 $(OBJ_DIR_DEBUG):
 	mkdir -p $(OBJ_DIR_DEBUG)	

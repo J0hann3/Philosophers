@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/21 15:46:24 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/21 17:50:45 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-
-typedef struct s_rules
-{
-	short			is_died;
-	struct timeval	time_begin;
-	int				time_die;
-	int				time_sleep;
-	int				time_eat;
-	int				number_eat;
-	int				number_philo;
-	int				index;
-	char			**str;
-	int				*fork;
-	pthread_mutex_t	*mutex_fork;
-	pthread_mutex_t	mutex_index;
-	pthread_mutex_t	mutex_died;
-	pthread_mutex_t	mutex_printf;
-	pthread_t		*philo;			// Not sure it's usefull in the struct
-}	t_rules;
 
 enum e_print
 {
@@ -55,7 +36,28 @@ typedef struct	s_philo
 	int				fork_2;
 	enum e_print	last_action;
 	struct timeval	last_meal;
+	// pthread_t		philo;			// Not sure it's usefull in the struct
 }	t_philo;
+
+typedef struct s_rules
+{
+	short			is_died;
+	struct timeval	time_begin;
+	int				time_die;
+	int				time_sleep;
+	int				time_eat;
+	int				number_eat;
+	int				number_philo;
+	int				index;
+	char			**str;
+	// int				*fork;
+	pthread_mutex_t	*mutex_fork;
+	pthread_mutex_t	mutex_index;
+	pthread_mutex_t	mutex_died;
+	pthread_mutex_t	mutex_printf;
+	pthread_t		*philo_thread;			// Not sure it's usefull in the struct
+	t_philo			**philo;			// Not sure it's usefull in the struct
+}	t_rules;
 
 // typedef struct s_time
 // {
@@ -95,6 +97,7 @@ int				ft_create_thread(t_rules *mutex);
 void			*philosophers(void	*p);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex);
+void			*check_death(void *arg);
 
 
 #endif

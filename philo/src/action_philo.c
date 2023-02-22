@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:36:53 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/20 17:03:09 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/21 17:19:34 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	action_philo(t_rules *rules, t_philo *philo)
 
 void	ft_died(t_rules *rules, t_philo *philo)
 {
-	rules->is_died = 1;
+	// rules->is_died = 1;
 	pthread_mutex_lock(&rules->mutex_printf);
 	printf("%ld %d %s\n",ft_time(&rules->time_begin, timestamp()), philo->nb, rules->str[e_die]);
 	pthread_mutex_unlock(&rules->mutex_printf);
@@ -47,54 +47,54 @@ void	ft_find_fork(t_rules *rules, t_philo *philo)
 	ft_printf(rules, philo, e_think);
 	
 	pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
-	while (rules->fork[philo->fork_1] != 0)
-	{
-		pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
-		pthread_mutex_lock(&rules->mutex_died);
-		if (rules->is_died != 1 && ft_time(&philo->last_meal, timestamp()) >= rules->time_die)
-		{
-			ft_died(rules, philo);
-			pthread_mutex_unlock(&rules->mutex_died);
-			return ;
-		}
-		pthread_mutex_unlock(&rules->mutex_died);
-		// usleep(50);
-		pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
-	}
-	rules->fork[philo->fork_1] = 1;
-	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
+	// while (rules->fork[philo->fork_1] != 0)
+	// {
+	// 	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
+	// 	pthread_mutex_lock(&rules->mutex_died);
+	// 	if (rules->is_died != 1 && ft_time(&philo->last_meal, timestamp()) >= rules->time_die)
+	// 	{
+	// 		ft_died(rules, philo);
+	// 		pthread_mutex_unlock(&rules->mutex_died);
+	// 		return ;
+	// 	}
+	// 	pthread_mutex_unlock(&rules->mutex_died);
+	// 	// usleep(50);
+	// 	pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
+	// }
+	// rules->fork[philo->fork_1] = 1;
+	// pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
 	
 	ft_printf(rules, philo, e_fork);
 	
 	pthread_mutex_lock(&rules->mutex_fork[philo->fork_2]);
-	while (rules->fork[philo->fork_2] != 0)
-	{
-		pthread_mutex_unlock(&rules->mutex_fork[philo->fork_2]);
-		pthread_mutex_lock(&rules->mutex_died);
-		if (rules->is_died != 1 && ft_time(&philo->last_meal, timestamp()) >= rules->time_die)
-		{
-			pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
-			rules->fork[philo->fork_1] = 0;
-			pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
-			ft_died(rules, philo);
-			pthread_mutex_unlock(&rules->mutex_died);
-			return ;
-		}
-		pthread_mutex_unlock(&rules->mutex_died);
-		// usleep(50);
-		pthread_mutex_lock(&rules->mutex_fork[philo->fork_2]);
-	}
-	rules->fork[philo->fork_2] = 1;
-	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_2]);
+	// while (rules->fork[philo->fork_2] != 0)
+	// {
+	// 	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_2]);
+	// 	pthread_mutex_lock(&rules->mutex_died);
+	// 	if (rules->is_died != 1 && ft_time(&philo->last_meal, timestamp()) >= rules->time_die)
+	// 	{
+	// 		pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
+	// 		rules->fork[philo->fork_1] = 0;
+	// 		pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
+	// 		ft_died(rules, philo);
+	// 		pthread_mutex_unlock(&rules->mutex_died);
+	// 		return ;
+	// 	}
+	// 	pthread_mutex_unlock(&rules->mutex_died);
+	// 	// usleep(50);
+	// 	pthread_mutex_lock(&rules->mutex_fork[philo->fork_2]);
+	// }
+	// rules->fork[philo->fork_2] = 1;
+	// pthread_mutex_unlock(&rules->mutex_fork[philo->fork_2]);
 	
 	ft_printf(rules, philo, e_fork);
 	ft_eat(rules, philo);
 
-	pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
-	rules->fork[philo->fork_1] = 0;
+	// pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
+	// rules->fork[philo->fork_1] = 0;
 	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
-	pthread_mutex_lock(&rules->mutex_fork[philo->fork_2]);
-	rules->fork[philo->fork_2] = 0;
+	// pthread_mutex_lock(&rules->mutex_fork[philo->fork_2]);
+	// rules->fork[philo->fork_2] = 0;
 	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_2]);
 }
 

@@ -24,6 +24,7 @@ Compilation:
 -> gcc -fsanitize=thread -g multithread.c -lpthread
 valgrind --tool=helgrind ./a.out ->error of thread Helgrind
 valgrind --tool=drd ./a.out ->error of thread DRD
+ulimit -T ->limit thread
 
 PTHREAD_THREADS_MAX -> number of thread max
 ATTENTION: DEAD LOCK -> kill a thread before unlock a mutex

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/21 15:48:55 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/21 18:35:25 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	*philosophers(void	*args)
 	(philo_rules->index)++;
 	philo.nb = philo_rules->index;
 	pthread_mutex_unlock(&philo_rules->mutex_index);
+	philo_rules->philo[philo.nb - 1] = &philo;
 	philo.last_meal.tv_sec = philo_rules->time_begin.tv_sec;
 	philo.last_meal.tv_usec= philo_rules->time_begin.tv_usec;
 	philo.fork_1 = philo.nb - 1;
@@ -33,6 +34,12 @@ void	*philosophers(void	*args)
 		philo.fork_2 = philo.nb - 1;
 	}
 	philo.last_action = philo.nb % 2 + 1;
+	if (philo.nb == philo_rules->number_philo)
+	{
+		pthread_mutex_lock(&philo_rules->mutex_died);
+		philo_rules->is_died = 0;
+		pthread_mutex_unlock(&philo_rules->mutex_died);
+	}
 	if (philo_rules->number_eat == -1)
 		infini_time(philo_rules, &philo);
 	else
@@ -52,10 +59,10 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	mutex.index = 0;
-	mutex.is_died = 0;
+	mutex.is_died = 2;
 	if (ft_init_malloc(&mutex) == 1)
 		return (1);
-	memset(mutex.fork, 0, sizeof(int) * mutex.number_philo);
+	// memset(mutex.fork, 0, sizeof(int) * mutex.number_philo);
 	if (ft_init_rules(&mutex) == 1)
 		return (error(&mutex), 1);
 	gettimeofday(&mutex.time_begin, NULL);
@@ -63,7 +70,7 @@ int	main(int argc, char **argv)
 		return (error(&mutex), 1);
 	while (i < mutex.number_philo)
 	{
-		if (pthread_join(mutex.philo[i], NULL) != 0)
+		if (pthread_join(mutex.philo_thread[i], NULL) != 0)
 		{
 			printf("Error : Failed to join thread\n");
 			return (error(&mutex), 1);

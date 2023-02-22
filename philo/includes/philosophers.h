@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/21 17:50:45 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/22 13:11:13 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ enum e_print
 	e_sleep,
 	e_think,
 	e_die,
+	e_eat_think,
 };
 
 typedef struct	s_philo
@@ -46,17 +47,18 @@ typedef struct s_rules
 	int				time_die;
 	int				time_sleep;
 	int				time_eat;
+	int				time_think;
 	int				number_eat;
 	int				number_philo;
 	int				index;
 	char			**str;
-	// int				*fork;
+	int				*fork;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	mutex_index;
 	pthread_mutex_t	mutex_died;
 	pthread_mutex_t	mutex_printf;
 	pthread_t		*philo_thread;			// Not sure it's usefull in the struct
-	t_philo			**philo;			// Not sure it's usefull in the struct
+	// t_philo			**philo;
 }	t_rules;
 
 // typedef struct s_time

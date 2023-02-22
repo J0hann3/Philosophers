@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:36:53 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/22 13:21:07 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/22 15:32:57 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,12 @@ void	ft_find_fork(t_rules *rules, t_philo *philo)
 			return ;
 		}
 		pthread_mutex_unlock(&rules->mutex_died);
-		// usleep(50);
 		pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
 	}
 	rules->fork[philo->fork_1] = 1;
 	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
 	
 	ft_printf(rules, philo, e_fork);
-	// if (philo->fork_1 == philo->fork_2)
-	// {
-	// 	ft_usleep(time, rules->time_die + 10, philo, rules);
-	// 	pthread_mutex_unlock(&rules->mutex_fork[philo->fork_1]);
-	// 	return ;	
-	// }
 
 	pthread_mutex_lock(&rules->mutex_fork[philo->fork_2]);
 	while (rules->fork[philo->fork_2] != 0)
@@ -101,7 +94,6 @@ void	ft_find_fork(t_rules *rules, t_philo *philo)
 			return ;
 		}
 		pthread_mutex_unlock(&rules->mutex_died);
-		// usleep(50);
 		pthread_mutex_lock(&rules->mutex_fork[philo->fork_2]);
 	}
 	rules->fork[philo->fork_2] = 1;

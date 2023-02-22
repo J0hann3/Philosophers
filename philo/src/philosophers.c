@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/22 13:14:16 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/22 15:16:13 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	*philosophers(void	*args)
 	(philo_rules->index)++;
 	philo.nb = philo_rules->index;
 	pthread_mutex_unlock(&philo_rules->mutex_index);
-	// philo_rules->philo[philo.nb - 1] = &philo;
 	// ---- Init Philo -----
 	philo.last_meal.tv_sec = philo_rules->time_begin.tv_sec;
 	philo.last_meal.tv_usec= philo_rules->time_begin.tv_usec;
@@ -35,21 +34,11 @@ void	*philosophers(void	*args)
 		philo.fork_2 = philo.nb - 1;
 	}
 	if (philo_rules->number_philo % 2 == 0)
-	{
 		philo.last_action = philo.nb % 2 + 1;
-		printf("Pair	nb : %d		action : %s\n", philo.nb, philo_rules->str[philo.last_action]);
-	}
+		// printf("Pair	nb : %d		action : %s\n", philo.nb, philo_rules->str[philo.last_action]);
 	else
-	{
 		philo.last_action = philo.nb % 3 + 1;
-		printf("Impair	nb : %d		action : %s\n", philo.nb, philo_rules->str[philo.last_action]);
-	}
-	// if (philo.nb == philo_rules->number_philo)
-	// {
-	// 	pthread_mutex_lock(&philo_rules->mutex_died);
-	// 	philo_rules->is_died = 0;
-	// 	pthread_mutex_unlock(&philo_rules->mutex_died);
-	// }
+		// printf("Impair	nb : %d		action : %s\n", philo.nb, philo_rules->str[philo.last_action]);
 	if (philo_rules->number_eat == -1)
 		infini_time(philo_rules, &philo);
 	else

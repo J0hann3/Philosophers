@@ -16,15 +16,19 @@ IS_DIED="died"
 echo "Run philosophers ..."
 ./philosophers $PHILO $DIE $EAT $SLEEP $NUM >test.txt 
 
-PHILO_LAST=$(tail -n1 test.txt | cut -f3 -d' ')
+# PHILO_LAST=$(tail -n1 test.txt | cut -f3 -d' ')
+
 
 # if ["$PHILO_LAST" != "died"]; then
 # 	echo "There is no philo who died"
 # 	exit 0
 # fi 
 
-PHILO_DIED=$(tail -n1 test.txt | cut -f2 -d' ')
+# PHILO_DIED=$(tail -n1 test.txt | cut -f2 -d' ')
 
-grep -w $PHILO_DIED test.txt
+for i in $(seq 1 $PHILO); do
+	echo -e "\e[0;31m----------$i----------\e[0m"
+	grep -w $i test.txt
+done
 
 

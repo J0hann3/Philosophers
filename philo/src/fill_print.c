@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 11:46:47 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 12:36:30 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	fill_print(char **str)
 	str[3] = ft_strdup("is thinking");
 	str[4] = ft_strdup("died");
 	if (str[0] == NULL || str[1] == NULL || str[2] == NULL || str[3] == NULL
-			|| str[4] == NULL)
+		|| str[4] == NULL)
 	{
 		free_str(str);
 		return (1);
@@ -37,9 +37,19 @@ struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat)
 	if (rules->is_died != 1)
 	{
 		pthread_mutex_lock(&rules->mutex_printf);
-		printf("%ld %d %s\n",ft_time(&rules->time_begin, time), philo->nb, rules->str[etat]);
+		printf("%ld %d %s\n", ft_time(&rules->time_begin, time), philo->nb,
+			rules->str[etat]);
 		pthread_mutex_unlock(&rules->mutex_printf);
 	}
 	pthread_mutex_unlock(&rules->mutex_died);
 	return (time);
+}
+
+void	ft_died(t_rules *rules, t_philo *philo)
+{
+	rules->is_died = 1;
+	pthread_mutex_lock(&rules->mutex_printf);
+	printf("%ld %d %s\n", ft_time(&rules->time_begin, timestamp()), philo->nb,
+		rules->str[e_die]);
+	pthread_mutex_unlock(&rules->mutex_printf);
 }

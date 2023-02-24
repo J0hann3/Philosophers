@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 11:52:17 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 12:17:59 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	*philosophers(void	*args)
 	(philo_rules->index)++;
 	philo.nb = philo_rules->index;
 	pthread_mutex_unlock(&philo_rules->mutex_index);
-	// ---- Init Philo -----
 	philo.last_meal.tv_sec = philo_rules->time_begin.tv_sec;
 	philo.last_meal.tv_usec= philo_rules->time_begin.tv_usec;
 	philo.fork_1 = philo.nb - 1;
@@ -55,6 +54,8 @@ int	main(int argc, char **argv)
 		printf("Error : Incorrect arguments\n");
 		return (1);
 	}
+	if (mutex.number_eat == 0)
+		return (0);
 	mutex.index = 0;
 	mutex.is_died = 0;
 	mutex.n_meal = 0;

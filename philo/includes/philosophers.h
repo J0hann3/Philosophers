@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 11:49:43 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 12:35:47 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ enum e_print
 	e_eat_think,
 };
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				nb;
 	int				fork_1;
@@ -58,7 +58,7 @@ typedef struct s_rules
 	pthread_mutex_t	mutex_index;
 	pthread_mutex_t	mutex_died;
 	pthread_mutex_t	mutex_printf;
-	pthread_t		*philo_thread;			// Not sure it's usefull in the struct
+	pthread_t		*philo_thread;
 }	t_rules;
 
 // typedef struct s_time
@@ -82,14 +82,15 @@ int				parsing(int argc, char **argv, t_rules *mutex);
 void			ft_eat(t_rules *rules, t_philo *philo);
 void			ft_sleep(t_rules *rules, t_philo *philo);
 void			ft_think(t_rules *rules, t_philo *philo);
-void			ft_find_fork(t_rules *rules, t_philo *philo);
+void			ft_find_fork_eat(t_rules *rules, t_philo *philo);
 void			ft_died(t_rules *rules, t_philo *philo);
 
 void			infini_time(t_rules *rules, t_philo *philo);
 void			n_time(t_rules *rules, t_philo *philo);
 void			action_philo(t_rules *rules, t_philo *philo);
 long			ft_time(struct timeval *begin, struct timeval now);
-void			ft_usleep(struct timeval now, long time, t_philo *philo, t_rules *rules);
+void			ft_usleep(struct timeval now, long time, t_philo *philo,
+					t_rules *rules);
 long			time_conv(struct timeval *time);
 struct timeval	timestamp(void);
 int				ft_init_malloc(t_rules *mutex);
@@ -99,7 +100,6 @@ int				ft_create_thread(t_rules *mutex);
 void			*philosophers(void	*p);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex);
-void			*check_death(void *arg);
-
+// void			*check_death(void *arg);
 
 #endif

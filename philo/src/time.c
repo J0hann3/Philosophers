@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:13:31 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 11:47:40 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 12:26:55 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 long	ft_time(struct timeval *begin, struct timeval now)
 {
-	long			milli;
-	
+	long	milli;
+
 	milli = time_conv(&now) - time_conv(begin);
 	return (milli);
 }
 
 struct timeval	timestamp(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	return (time);

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:35:47 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 12:43:53 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_rules
 	char			**str;
 	int				*fork;
 	pthread_mutex_t	*mutex_fork;
-	pthread_mutex_t	mutex_n_meal;
 	pthread_mutex_t	mutex_index;
 	pthread_mutex_t	mutex_died;
 	pthread_mutex_t	mutex_printf;

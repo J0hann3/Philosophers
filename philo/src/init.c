@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:41:07 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 12:44:06 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	ft_init_rules(t_rules *mutex)
 		}
 		++i;
 	}
-	if (pthread_mutex_init(&mutex->mutex_n_meal, NULL) != 0)
-		return (printf("Error : Failed to init mutex\n"), 1);
 	if (pthread_mutex_init(&mutex->mutex_printf, NULL) != 0)
 		return (printf("Error : Failed to init mutex\n"), 1);
 	if (pthread_mutex_init(&mutex->mutex_index, NULL) != 0)
@@ -94,8 +92,6 @@ void	ft_destroy(t_rules *mutex)
 	if (pthread_mutex_destroy(&mutex->mutex_index) != 0)
 		printf("Error : Failed to destroy mutex\n");
 	if (pthread_mutex_destroy(&mutex->mutex_died) != 0)
-		printf("Error : Failed to destroy mutex\n");
-	if (pthread_mutex_destroy(&mutex->mutex_n_meal) != 0)
 		printf("Error : Failed to destroy mutex\n");
 	free(mutex->mutex_fork);
 	free(mutex->philo_thread);

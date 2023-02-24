@@ -6,11 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:22:42 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 17:21:26 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 // void	*check_death(void *arg)
 // {

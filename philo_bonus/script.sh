@@ -14,7 +14,7 @@ NUM=$5
 IS_DIED="died"
 
 echo "Run philosophers ..."
-./philosophers $PHILO $DIE $EAT $SLEEP $NUM >test.txt 
+./philo_bonus $PHILO $DIE $EAT $SLEEP $NUM >test.txt 
 
 # PHILO_LAST=$(tail -n1 test.txt | cut -f3 -d' ')
 

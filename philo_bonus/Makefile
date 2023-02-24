@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/24 14:44:25 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/24 19:26:18 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ DEBUG = -g -fsanitize=thread
 LFLAGS = -lpthread
 INCLUDES = -I$(HEADERS_DIR)
 
-HEADERS_LIST = philosophers.h
+HEADERS_LIST = philo.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
@@ -43,7 +43,7 @@ OBJ_DEBUG = $(addprefix $(OBJ_DIR_DEBUG), $(OBJ_LIST_DEBUG))
 all:	$(NAME)
 
 $(NAME):	$(OBJ_DIR) $(OBJ)
-	$(CC) $(OBJ) $(INCLUDES) $(LFLAGS) -o $(NAME)
+	$(CC)  $(OBJ) $(INCLUDES) $(LFLAGS) -o $(NAME)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(HEADERS)
 	$(CC) -c $(INCLUDES) $< -o $@

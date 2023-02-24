@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 16:30:03 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 20:16:51 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
+# include <semaphore.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-// -- Semaphore --
 # include <fcntl.h>		/* For O_* constants */
 # include <sys/stat.h>	/* For mode constants */
-# include <semaphore.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 
-#include <sys/wait.h>
-#include <sys/types.h>
-
+# define SEM_NAME "/fork"
 
 enum e_print
 {
@@ -41,8 +40,9 @@ enum e_print
 typedef struct s_philo
 {
 	int				nb;
-	int				fork_1;
-	int				fork_2;
+	sem_t			*sem;
+	// int				fork_1;
+	// int				fork_2;
 	enum e_print	last_action;
 	struct timeval	last_meal;
 }	t_philo;
@@ -58,10 +58,9 @@ typedef struct s_rules
 	int				time_think;
 	int				number_eat;
 	int				number_philo;
-	int				index;
 	char			**str;
-	int				*fork;
-	pthread_t		*philo_thread;
+	// int				*fork;
+	// pthread_t		*philo_thread;
 }	t_rules;
 
 // typedef struct s_time
@@ -100,9 +99,8 @@ int				ft_init_malloc(t_rules *mutex);
 int				ft_init_rules(t_rules *mutex);
 void			ft_destroy(t_rules *mutex);
 int				ft_create_thread(t_rules *mutex);
-void			philosophers(void);
+void			philosophers(t_rules *rules, int n_philo);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex);
-// void			*check_death(void *arg);
 
 #endif

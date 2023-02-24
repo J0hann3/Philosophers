@@ -6,11 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 16:31:40 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 20:17:08 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	ft_init_malloc(t_rules *mutex)
 {
@@ -54,15 +54,15 @@ int	ft_init_malloc(t_rules *mutex)
 void	ft_destroy(t_rules *mutex)
 {
 	// free(mutex->mutex_fork);
-	free(mutex->philo_thread);
-	free(mutex->fork);
+	// free(mutex->philo_thread);
+	// free(mutex->fork);
 	free_str(mutex->str);
 }
 
 void	error(t_rules *mutex)
 {
 	// free(mutex->mutex_fork);
-	free(mutex->philo_thread);
-	free(mutex->fork);
+	// free(mutex->philo_thread);
+	// free(mutex->fork);
 	free_str(mutex->str);
 }

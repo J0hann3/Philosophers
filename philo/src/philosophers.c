@@ -6,13 +6,29 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:17:59 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:47:57 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/*\*/
+static void	init_philo(t_rules *philo_rules, t_philo *philo)
+{
+	philo->last_meal.tv_sec = philo_rules->time_begin.tv_sec;
+	philo->last_meal.tv_usec = philo_rules->time_begin.tv_usec;
+	philo->fork_1 = philo->nb - 1;
+	philo->fork_2 = philo->nb % philo_rules->number_philo;
+	if (philo->fork_1 == philo_rules->number_philo - 1)
+	{
+		philo->fork_1 = philo->nb % philo_rules->number_philo;
+		philo->fork_2 = philo->nb - 1;
+	}
+	if (philo_rules->number_philo % 2 == 0)
+		philo->last_action = philo->nb % 2 + 1;
+	else
+		philo->last_action = philo->nb % 3 + 1;
+}
+
 void	*philosophers(void	*args)
 {
 	t_rules		*philo_rules;
@@ -23,19 +39,7 @@ void	*philosophers(void	*args)
 	(philo_rules->index)++;
 	philo.nb = philo_rules->index;
 	pthread_mutex_unlock(&philo_rules->mutex_index);
-	philo.last_meal.tv_sec = philo_rules->time_begin.tv_sec;
-	philo.last_meal.tv_usec= philo_rules->time_begin.tv_usec;
-	philo.fork_1 = philo.nb - 1;
-	philo.fork_2 = philo.nb % philo_rules->number_philo;
-	if (philo.fork_1 == philo_rules->number_philo - 1)
-	{
-		philo.fork_1 = philo.nb % philo_rules->number_philo;
-		philo.fork_2 = philo.nb - 1;
-	}
-	if (philo_rules->number_philo % 2 == 0)
-		philo.last_action = philo.nb % 2 + 1;
-	else
-		philo.last_action = philo.nb % 3 + 1;
+	init_philo(philo_rules, &philo);
 	if (philo_rules->number_eat == -1)
 		infini_time(philo_rules, &philo);
 	else
@@ -83,5 +87,3 @@ int	main(int argc, char **argv)
 	ft_destroy(&mutex);
 	return (0);
 }
-
-/**/

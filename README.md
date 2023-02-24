@@ -50,45 +50,40 @@ Multitasking:
 
 fork() -> create process -> separate system calls
 
+SEMAPHORES
 
-context switch ??
-data segment : which variables are contain in it ??
-concurrency or parallelism CPU
-mutex ??
+Funtcion :
+sem_open, sem_close, sem_post, sem_wait, sem_unlink
 
-TEST
+struct : 
+	-int
+	-pointeur to thread block by it
 
-5 800 200 200
-no one should die
-5 600 150 150
-no one should die
-4 410 200 200
-no one should die
-100 800 200 200
-no one should die
-105 800 200 200
-no one should die
-200 800 200 200
-no one should die
+use :
+- Init (value)
+- post -> use to modofie the value of the semaphore
+- wait -> test the value of the semaphore
+-Destroy
 
 
-1 800 200 200
-a philo should die
-4 310 200 100
-a philo should die
-4 200 205 200
-a philo should die
-5 800 200 200 7
-no one should die, simulation should stop after 7 eats		-> need to implement that
-4 410 200 200 10
-no one should die, simulation should stop after 10 eats
--5 600 200 200
-should error and not run (no crashing)
-4 -5 200 200
-should error and not run (no crashing)
-4 600 -5 200
-should error and not run (no crashing)
-4 600 200 -5
-should error and not run (no crashing)
-4 600 200 200 -5
-should error and not run (no crashing)
+TEST MANDOTORY PART
+
+5 800 200 200			no one should die
+5 600 150 150			no one should die
+4 410 200 200			no one should die
+100 800 200 200			no one should die
+105 800 200 200			no one should die
+200 800 200 200			no one should die
+
+1 800 200 200			a philo should die
+4 310 200 100			a philo should die
+4 200 205 200			a philo should die
+
+5 800 200 200 7			no one should die, simulation should stop after 7 eatsthat
+4 410 200 200 10		no one should die, simulation should stop after 10 eats
+
+-5 600 200 200			should error and not run (no crashing)
+4 -5 200 200			should error and not run (no crashing)
+4 600 -5 200			should error and not run (no crashing)
+4 600 200 -5			should error and not run (no crashing)
+4 600 200 200 -5		should error and not run (no crashing)

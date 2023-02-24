@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:13:31 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/22 15:08:47 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 11:47:40 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ long	ft_time(struct timeval *begin, struct timeval now)
 {
 	long			milli;
 	
-	// printf("time : %ld	begin : %ld	diff : %ld\n", time_conv(&time), time_conv(begin), time_conv(&time) - time_conv(begin));
 	milli = time_conv(&now) - time_conv(begin);
-	// milli = (time.tv_usec - begin->tv_usec) / 1000 + (time.tv_sec - begin->tv_sec) * 1000;
 	return (milli);
 }
 

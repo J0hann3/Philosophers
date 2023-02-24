@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/22 15:16:13 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 11:52:17 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void	*philosophers(void	*args)
 	}
 	if (philo_rules->number_philo % 2 == 0)
 		philo.last_action = philo.nb % 2 + 1;
-		// printf("Pair	nb : %d		action : %s\n", philo.nb, philo_rules->str[philo.last_action]);
 	else
 		philo.last_action = philo.nb % 3 + 1;
-		// printf("Impair	nb : %d		action : %s\n", philo.nb, philo_rules->str[philo.last_action]);
 	if (philo_rules->number_eat == -1)
 		infini_time(philo_rules, &philo);
 	else
@@ -59,6 +57,7 @@ int	main(int argc, char **argv)
 	}
 	mutex.index = 0;
 	mutex.is_died = 0;
+	mutex.n_meal = 0;
 	if (mutex.number_philo % 2 == 0)
 		mutex.time_think = 0;
 	else

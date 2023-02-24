@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:36:53 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/22 15:32:57 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 11:46:31 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_sleep(t_rules *rules, t_philo *philo)
 	struct timeval	now;
 	
 	now = ft_printf(rules, philo, e_sleep);
-	// printf("s : %ld,	us: %ld\n", now.tv_sec, now.tv_usec);
 	ft_usleep(now, rules->time_sleep, philo, rules);
 }
 
@@ -58,8 +57,6 @@ void	ft_think(t_rules *rules, t_philo *philo)
 
 void	ft_find_fork(t_rules *rules, t_philo *philo)
 {
-	// struct timeval	time;
-	
 	pthread_mutex_lock(&rules->mutex_fork[philo->fork_1]);
 	while (rules->fork[philo->fork_1] != 0)
 	{

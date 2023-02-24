@@ -53,7 +53,14 @@ fork() -> create process -> separate system calls
 SEMAPHORES
 
 Funtcion :
-sem_open, sem_close, sem_post, sem_wait, sem_unlink
+sem_open -> pass semaphore between process, open or create a new semaphore
+sem_close -> close a semaphore in a process
+sem_post
+sem_wait
+sem_unlink -> remove fro the system  when use is finish
+
+- Not allow to fall below 0
+- if value of semaphore is initialize to 1 has the same role as MUTEX
 
 struct : 
 	-int
@@ -61,9 +68,9 @@ struct :
 
 use :
 - Init (value)
-- post -> use to modofie the value of the semaphore
-- wait -> test the value of the semaphore
--Destroy
+- post (increment by 1)-> use to modofie the value of the semaphore
+- wait (decrement by 1)-> test the value of the semaphore
+- Destroy
 
 
 TEST MANDOTORY PART

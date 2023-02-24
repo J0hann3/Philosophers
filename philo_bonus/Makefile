@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/24 12:49:21 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/24 14:44:25 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,10 +43,10 @@ OBJ_DEBUG = $(addprefix $(OBJ_DIR_DEBUG), $(OBJ_LIST_DEBUG))
 all:	$(NAME)
 
 $(NAME):	$(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(INCLUDES) $(LFLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(INCLUDES) $(LFLAGS) -o $(NAME)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
+	$(CC) -c $(INCLUDES) $< -o $@
 	
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)

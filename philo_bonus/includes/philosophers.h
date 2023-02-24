@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:43:53 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:30:03 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+// -- Semaphore --
+# include <fcntl.h>		/* For O_* constants */
+# include <sys/stat.h>	/* For mode constants */
+# include <semaphore.h>
+
+#include <sys/wait.h>
+#include <sys/types.h>
+
 
 enum e_print
 {
@@ -53,10 +61,6 @@ typedef struct s_rules
 	int				index;
 	char			**str;
 	int				*fork;
-	pthread_mutex_t	*mutex_fork;
-	pthread_mutex_t	mutex_index;
-	pthread_mutex_t	mutex_died;
-	pthread_mutex_t	mutex_printf;
 	pthread_t		*philo_thread;
 }	t_rules;
 
@@ -96,7 +100,7 @@ int				ft_init_malloc(t_rules *mutex);
 int				ft_init_rules(t_rules *mutex);
 void			ft_destroy(t_rules *mutex);
 int				ft_create_thread(t_rules *mutex);
-void			*philosophers(void	*p);
+void			philosophers(void);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex);
 // void			*check_death(void *arg);

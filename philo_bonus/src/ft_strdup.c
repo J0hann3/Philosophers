@@ -6,11 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:04:11 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 17:21:39 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 21:14:35 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 size_t	ft_strlen(const char *s)
 {

@@ -6,11 +6,12 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 20:19:04 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 20:37:33 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <sys/stat.h>
 
 // static void	init_philo()
 // {}
@@ -74,9 +75,11 @@ int	main(int argc, char **argv)
 		mutex.time_think = mutex.time_eat;
 	
 	// ------- Semaphore --------
+	sem_unlink(SEM_NAME);
 	semaphore = sem_open(SEM_NAME, O_CREAT, 0644, mutex.number_philo);
 	if (semaphore == SEM_FAILED)
 		return(printf("Error : Failed to create the semaphore\n"), 1);
+	// if (semaphore == EEXIST)
 	if (sem_close(semaphore) < 0)
 	{
 		sem_unlink(SEM_NAME);

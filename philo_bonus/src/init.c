@@ -6,11 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 20:17:08 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 21:14:35 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	ft_init_malloc(t_rules *mutex)
 {

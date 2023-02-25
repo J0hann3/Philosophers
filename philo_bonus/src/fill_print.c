@@ -6,11 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 17:21:29 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/24 21:14:35 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	fill_print(char **str)
 {

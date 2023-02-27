@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 20:37:21 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:48:20 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	*check_meal(void *arg)
 	sem_wait(sem->mutex);
 	sem_post(sem->death);
 	
-	sem_close(sem->meal);
-	sem_close(sem->mutex);
-	sem_close(sem->death);
+	// sem_close(sem->meal);
+	// sem_close(sem->mutex);
+	// sem_close(sem->death);
 	return (NULL);
 }

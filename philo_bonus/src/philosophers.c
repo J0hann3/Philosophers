@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 20:40:15 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:48:05 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,10 @@ int	main(int argc, char **argv)
 	if (ft_create_process(&mutex, pid) <= 0)
 		return (0);
 	sem_wait(sem.death);
+	i = -1;
+	while (++i < mutex.number_philo)
+		if (kill(pid[i], SIGKILL) == -1)
+			return(printf("Error : Failed to kill process\n"), 1);
 	//-----Close semaphore-----
 	if (sem_close(sem.fork) < 0)
 		return(printf("Error : Failed to close the semaphore\n"), 1);
@@ -106,17 +110,7 @@ int	main(int argc, char **argv)
 	if (sem_close(sem.mutex) < 0)
 		return(printf("Error : Failed to close the semaphore\n"), 1);
 	if (sem_close(sem.death) < 0)
-	{
-		sem_unlink(S_FORK);
-		sem_unlink(S_DEATH);
-		sem_unlink(S_MUTEX);
-		sem_unlink(S_MEAL);
 		return(printf("Error : Failed to close the semaphore\n"), 1);
-	}
-	i = -1;
-	while (++i < mutex.number_philo)
-		if (kill(pid[i], SIGKILL) == -1)
-			return(printf("Error : Failed to kill process\n"), 1);
 	error(&mutex, pid);
 	return (0);
 }

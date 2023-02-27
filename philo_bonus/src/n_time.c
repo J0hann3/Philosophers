@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:33:55 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 12:56:43 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 15:36:54 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // 	int	n_meal;
 
 // 	n_meal = 0;
-// 	while (rules->n_meal < (rules->number_philo))
+// 	while (philo->is_dead == 0 && rules->n_meal < (rules->number_philo))
 // 	{
 // 		if (philo->last_action == e_eat)
 // 			++n_meal;
@@ -29,7 +29,7 @@
 
 void	infini_time(t_rules *rules, t_philo *philo)
 {
-	while (philo->is_dead == 0)
+	while (1)
 	{
 		action_philo(rules, philo);
 	}

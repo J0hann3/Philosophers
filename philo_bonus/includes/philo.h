@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 13:14:52 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 15:41:37 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 
 # define S_FORK "/fork"
 # define S_DEATH "/death"
+# define S_MUTEX "/mutex"
+# define S_MEAL "/meal"
 
 enum e_print
 {
@@ -42,8 +44,8 @@ enum e_print
 typedef struct s_philo
 {
 	int				nb;
-	short			is_dead;
 	sem_t			*sem;
+	sem_t			*mutex;
 	enum e_print	last_action;
 	struct timeval	last_meal;
 }	t_philo;
@@ -100,11 +102,14 @@ void			ft_usleep(struct timeval now, long time, t_philo *philo,
 long			time_conv(struct timeval *time);
 struct timeval	timestamp(void);
 pid_t			*ft_init_malloc(t_rules *mutex);
-int				ft_init_rules(t_rules *mutex);
 int				ft_create_thread(t_rules *mutex);
 void			philosophers(t_rules *rules, int n_philo);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex, pid_t *pid);
 void			*check_death(void *arg);
+int				ft_init_semaphore(sem_t **s_fork, sem_t **s_death, sem_t **s_mutex_death, t_rules *rules);
+int				ft_create_process(t_rules *rules, pid_t *pid);
+
+
 
 #endif

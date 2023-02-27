@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/27 17:56:22 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/27 18:59:13 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo_bonus
 NAME_DEBUG = philo_debug
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Wextra -g #-Werror
 DEBUG = -g -fsanitize=thread
 LFLAGS = -lpthread
 INCLUDES = -I$(HEADERS_DIR)

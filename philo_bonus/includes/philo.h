@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 17:58:22 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:36:41 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo
 	int				nb;
 	sem_t			*sem;
 	sem_t			*mutex;
+	sem_t			*death;
 	sem_t			*meal;
 	enum e_print	last_action;
 	struct timeval	last_meal;
@@ -69,6 +70,15 @@ typedef struct s_thread_death
 	t_rules		*rules;
 	pthread_t	thread;
 }	t_thread_death;
+
+typedef struct s_semaphore
+{
+	int				nb_philo;
+	sem_t			*meal;
+	sem_t			*death;
+	sem_t			*mutex;
+	sem_t			*fork;
+}	t_semaphore;
 
 // typedef struct s_time
 // {
@@ -105,7 +115,7 @@ struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex, pid_t *pid);
 void			*check_death(void *arg);
 void			*check_meal(void *arg);
-int				ft_init_semaphore(t_rules *rules);
+int				ft_init_semaphore(t_rules *rules, t_semaphore *sem);
 int				ft_create_process(t_rules *rules, pid_t *pid);
 
 

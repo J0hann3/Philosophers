@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 18:13:54 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:40:15 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,31 @@ void	philosophers(t_rules *rules, int n_philo)
 	t_philo			philo;
 	t_thread_death	death;
 
-	printf("philo	:			%d\n", n_philo + 1);
-	philo.sem = sem_open(S_FORK, O_EXCL);
-	philo.mutex = sem_open(S_MUTEX, O_EXCL);
 	philo.meal = sem_open(S_MEAL, O_EXCL);
 	if (philo.meal == SEM_FAILED)
 	{
 		printf("Error : Failed to open the semaphore in philo meal\n");
 		return ;
 	}
+	philo.sem = sem_open(S_FORK, O_EXCL);
 	if (philo.sem == SEM_FAILED)
 	{
 		printf("Error : Failed to open the semaphore in philo fork\n");
 		return ;
 	}
+	philo.mutex = sem_open(S_MUTEX, O_EXCL);
 	if (philo.mutex == SEM_FAILED)
 	{
 		printf("Error : Failed to open the semaphore in philo mutex\n");
 		return ;
 	}
+	philo.death = sem_open(S_DEATH, O_EXCL);
+	if (philo.death == SEM_FAILED)
+	{
+		printf("Error : Failed to open the semaphore in philo mutex\n");
+		return ;
+	}
 	philo.nb = n_philo + 1;
-	printf("philo	:				%d\n", philo.nb);
 	
 	philo.last_meal.tv_sec = rules->time_begin.tv_sec;
 	philo.last_meal.tv_usec= rules->time_begin.tv_usec;
@@ -60,12 +64,6 @@ void	philosophers(t_rules *rules, int n_philo)
 		infini_time(rules, &philo);
 	else
 		n_time(rules, &philo);
-	
-	if (sem_close(philo.sem) < 0 || sem_close(philo.mutex) < 0 ||
-		sem_close(philo.meal) < 0)
-	{
-		printf("Error : Failed to close the semaphore\n");
-	}
 	return ;
 }
 
@@ -75,7 +73,7 @@ int	main(int argc, char **argv)
 	pid_t		*pid;
 	pthread_t	p_check_meal;
 	t_rules		mutex;
-	sem_t		*s_death;
+	t_semaphore	sem;
 
 	if (parsing(argc, argv, &mutex) == -1)
 		return (printf("Error : Incorrect arguments\n"), 1);
@@ -90,18 +88,31 @@ int	main(int argc, char **argv)
 		return (1);
 	gettimeofday(&mutex.time_begin, NULL);
 
-	if (ft_init_semaphore(&mutex) == 1)
+	if (ft_init_semaphore(&mutex, &sem) == 1)
 		return (1);
-	if (pthread_create(&p_check_meal, NULL, &check_meal, (void *)&mutex.number_philo) != 0)
+	sem.nb_philo = mutex.number_philo;
+	if (pthread_create(&p_check_meal, NULL, &check_meal, (void *)&sem) != 0)
 		return (printf("Error : Failed to create thread\n"), 1);
 	if (pthread_detach(p_check_meal) != 0)
 		return (1);
 	if (ft_create_process(&mutex, pid) <= 0)
 		return (0);
-	s_death = sem_open(S_DEATH, O_EXCL);
-	sem_wait(s_death);
-	if (sem_close(s_death) < 0)
+	sem_wait(sem.death);
+	//-----Close semaphore-----
+	if (sem_close(sem.fork) < 0)
 		return(printf("Error : Failed to close the semaphore\n"), 1);
+	if (sem_close(sem.meal) < 0)
+		return(printf("Error : Failed to close the semaphore\n"), 1);
+	if (sem_close(sem.mutex) < 0)
+		return(printf("Error : Failed to close the semaphore\n"), 1);
+	if (sem_close(sem.death) < 0)
+	{
+		sem_unlink(S_FORK);
+		sem_unlink(S_DEATH);
+		sem_unlink(S_MUTEX);
+		sem_unlink(S_MEAL);
+		return(printf("Error : Failed to close the semaphore\n"), 1);
+	}
 	i = -1;
 	while (++i < mutex.number_philo)
 		if (kill(pid[i], SIGKILL) == -1)

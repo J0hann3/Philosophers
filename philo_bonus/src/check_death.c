@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 15:38:22 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:08:27 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	*check_death(void *arg)
 		if (death->rules->time_die <= ft_time(&death->philo->last_meal,
 			timestamp()))
 		{
-			// printf("meurt--------------%d\n", death->philo->nb);
 			sem_wait(s_mutex);
 			sem_post(s_death);
 			printf("%ld %d %s\n",ft_time(&death->rules->time_begin, timestamp()),
@@ -44,21 +43,38 @@ void	*check_death(void *arg)
 	}
 }
 
-// void	*check_meal(void *arg)
-// {
-// 	sem_t	*s_meal;
-// 	sem_t	*s_mutex;
-// 	int		i;
+void	*check_meal(void *arg)
+{
+	int		nb_philo;
+	sem_t	*s_meal;
+	sem_t	*s_mutex;
+	sem_t	*s_death;
+	int		i;
 
-// 	*s_meal = sem_open(S_MEAL, O_CREAT, 0644, rules->number_philo);
-// 	*s_mutex = sem_open(S_MEAL, O_EXCL);
-	
-
-// 	//	Stop simulation
-// 	sem_wait(s_mutex);
-// 	i = -1;
-// 	while (++i < mutex.number_philo)
-// 	{
-// 		kill(pid[i], SIGKILL);
-// 	}
-// }
+	nb_philo = *(int *)arg;
+	s_meal = sem_open(S_MEAL, O_EXCL);
+	s_mutex = sem_open(S_MUTEX, O_EXCL);
+	s_death = sem_open(S_DEATH, O_EXCL);
+	if (s_meal == SEM_FAILED || s_mutex == SEM_FAILED ||
+		s_death == SEM_FAILED)
+	{
+		sem_close(s_meal);
+		sem_close(s_mutex);
+		sem_close(s_death);
+		printf("Error : Failed to open the semaphore\n");
+		return (NULL);
+	}
+	i = 0;
+	while (i < nb_philo)
+	{
+		sem_wait(s_meal);
+		++i;
+	}
+	sem_close(s_meal);
+	//	Stop simulation
+	sem_wait(s_mutex);
+	sem_post(s_death);
+	sem_close(s_mutex);
+	sem_close(s_death);
+	return (NULL);
+}

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 15:41:37 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 17:58:22 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo
 	int				nb;
 	sem_t			*sem;
 	sem_t			*mutex;
+	sem_t			*meal;
 	enum e_print	last_action;
 	struct timeval	last_meal;
 }	t_philo;
@@ -91,23 +92,20 @@ void			ft_eat(t_rules *rules, t_philo *philo);
 void			ft_sleep(t_rules *rules, t_philo *philo);
 void			ft_think(t_rules *rules, t_philo *philo);
 void			ft_find_fork_eat(t_rules *rules, t_philo *philo);
-void			ft_died(t_rules *rules, t_philo *philo);
 
 void			infini_time(t_rules *rules, t_philo *philo);
 void			n_time(t_rules *rules, t_philo *philo);
 void			action_philo(t_rules *rules, t_philo *philo);
 long			ft_time(struct timeval *begin, struct timeval now);
-void			ft_usleep(struct timeval now, long time, t_philo *philo,
-					t_rules *rules);
 long			time_conv(struct timeval *time);
 struct timeval	timestamp(void);
 pid_t			*ft_init_malloc(t_rules *mutex);
-int				ft_create_thread(t_rules *mutex);
 void			philosophers(t_rules *rules, int n_philo);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex, pid_t *pid);
 void			*check_death(void *arg);
-int				ft_init_semaphore(sem_t **s_fork, sem_t **s_death, sem_t **s_mutex_death, t_rules *rules);
+void			*check_meal(void *arg);
+int				ft_init_semaphore(t_rules *rules);
 int				ft_create_process(t_rules *rules, pid_t *pid);
 
 

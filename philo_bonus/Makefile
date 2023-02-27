@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/24 19:26:18 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/27 17:56:22 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo_bonus
 NAME_DEBUG = philo_debug
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 DEBUG = -g -fsanitize=thread
 LFLAGS = -lpthread
 INCLUDES = -I$(HEADERS_DIR)
@@ -43,10 +43,10 @@ OBJ_DEBUG = $(addprefix $(OBJ_DIR_DEBUG), $(OBJ_LIST_DEBUG))
 all:	$(NAME)
 
 $(NAME):	$(OBJ_DIR) $(OBJ)
-	$(CC)  $(OBJ) $(INCLUDES) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(INCLUDES) $(LFLAGS) -o $(NAME)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(HEADERS)
-	$(CC) -c $(INCLUDES) $< -o $@
+	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 	
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)

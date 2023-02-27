@@ -6,30 +6,30 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:33:55 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 21:14:35 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 12:56:43 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	n_time(t_rules *rules, t_philo *philo)
-{
-	int	n_meal;
+// void	n_time(t_rules *rules, t_philo *philo)
+// {
+// 	int	n_meal;
 
-	n_meal = 0;
-	while (rules->is_died != 1 && rules->n_meal < (rules->number_philo))
-	{
-		if (philo->last_action == e_eat)
-			++n_meal;
-		action_philo(rules, philo);
-		if (n_meal == rules->number_eat)
-			rules->n_meal = rules->n_meal + 1;
-	}
-}
+// 	n_meal = 0;
+// 	while (rules->n_meal < (rules->number_philo))
+// 	{
+// 		if (philo->last_action == e_eat)
+// 			++n_meal;
+// 		action_philo(rules, philo);
+// 		if (n_meal == rules->number_eat)
+// 			rules->n_meal = rules->n_meal + 1;
+// 	}
+// }
 
 void	infini_time(t_rules *rules, t_philo *philo)
 {
-	while (rules->is_died != 1)
+	while (philo->is_dead == 0)
 	{
 		action_philo(rules, philo);
 	}

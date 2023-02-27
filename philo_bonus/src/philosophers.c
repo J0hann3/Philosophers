@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 20:37:33 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 13:20:07 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,33 @@
 
 void	philosophers(t_rules *rules, int n_philo)
 {
-	t_philo		philo;
+	t_philo			philo;
+	t_thread_death	death;
 
-	philo.sem = sem_open(SEM_NAME, O_EXCL);
+	philo.sem = sem_open(S_FORK, O_EXCL);
 	if (philo.sem == SEM_FAILED)
 	{
-		printf("Error : Failed to create the semaphore\n");
+		printf("Error : Failed to open the semaphore\n");
 		return ;
 	}
-	philo.nb = n_philo;
+	philo.nb = n_philo + 1;
+	philo.is_dead = 0;
+	
 	philo.last_meal.tv_sec = rules->time_begin.tv_sec;
 	philo.last_meal.tv_usec= rules->time_begin.tv_usec;
-	// philo.fork_1 = philo.nb - 1;
-	// philo.fork_2 = philo.nb % rules->number_philo;
-	// if (philo.fork_1 == rules->number_philo - 1)
-	// {
-	// 	philo.fork_1 = philo.nb % rules->number_philo;
-	// 	philo.fork_2 = philo.nb - 1;
-	// }
+
 	if (rules->number_philo % 2 == 0)
 		philo.last_action = philo.nb % 2 + 1;
 	else
 		philo.last_action = philo.nb % 3 + 1;
+	death.philo = &philo;
+	death.rules = rules;
+	pthread_create(&death.thread, NULL, &check_death, (void *)&death);
+	pthread_detach(death.thread);
 	if (rules->number_eat == -1)
 		infini_time(rules, &philo);
-	else
-		n_time(rules, &philo);
+	// else
+	// 	n_time(rules, &philo);
 	
 	if (sem_close(philo.sem) < 0)
 	{
@@ -55,10 +56,11 @@ void	philosophers(t_rules *rules, int n_philo)
 int	main(int argc, char **argv)
 {
 	int		i;
-	int		philo;
 	int		pid_child;
+	pid_t	*pid;
 	t_rules	mutex;
-	sem_t	*semaphore = NULL;
+	sem_t	*s_fork = NULL;
+	sem_t	*s_death = NULL;
 
 	if (parsing(argc, argv, &mutex) == -1)
 	{
@@ -67,52 +69,61 @@ int	main(int argc, char **argv)
 	}
 	if (mutex.number_philo == 0 || mutex.number_eat == 0)
 		return (0);
-	mutex.is_died = 0;
-	mutex.n_meal = 0;
+
 	if (mutex.number_philo % 2 == 0)
 		mutex.time_think = 0;
 	else
 		mutex.time_think = mutex.time_eat;
 	
 	// ------- Semaphore --------
-	sem_unlink(SEM_NAME);
-	semaphore = sem_open(SEM_NAME, O_CREAT, 0644, mutex.number_philo);
-	if (semaphore == SEM_FAILED)
+	sem_unlink(S_FORK);
+	sem_unlink(S_DEATH);
+	s_fork = sem_open(S_FORK, O_CREAT, 0644, mutex.number_philo);
+	s_death = sem_open(S_DEATH, O_CREAT, 0644, 0);
+	if (s_fork == SEM_FAILED || s_death == SEM_FAILED)
 		return(printf("Error : Failed to create the semaphore\n"), 1);
-	// if (semaphore == EEXIST)
-	if (sem_close(semaphore) < 0)
+	if (sem_close(s_fork) < 0)
 	{
-		sem_unlink(SEM_NAME);
+		sem_unlink(S_FORK);
+		sem_unlink(S_DEATH);
 		return(printf("Error : Failed to close the semaphore\n"), 1);
 	}
-	if (ft_init_malloc(&mutex) == 1)
+	// -------- INIT ----------
+	pid = ft_init_malloc(&mutex);
+	if (pid == NULL)
 		return (1);
 	gettimeofday(&mutex.time_begin, NULL);
 
 	// ------ Create fork --------
-	pid_child = fork();
-	i = 1;
-	philo = 0;
+	i = 0;
+	// int	pid_main = getpid();
+	// printf("main %d\n", pid_main);
 	while (i < mutex.number_philo)
 	{
-		if (pid_child == 0)
-		{
-			pid_child = fork();
-			// if (pid_child != 0)
-			// 	printf("child  : %d, pere : %u	i:%d\n", getpid(), pid_child, i);
-			philo++;
-		}
+		pid_child = fork();
+		if (pid_child != 0)
+			pid[i] = pid_child;
 		else
-			break;
+		{
+			philosophers(&mutex, i);
+			return (0);
+		}
 		++i;
 	}
-	if (pid_child == 0 && i == mutex.number_philo)
-		philo++;
-	if (philo != 0)
-		philosophers(&mutex, philo);
-	waitpid(pid_child, NULL, 0);
-	if (philo == 0)
-		sem_unlink(SEM_NAME);
-	// printf("pid : %d %d %d\n", getpid(), pid_child, philo);
+	sem_wait(s_death);
+	printf("%ld %d %s\n",ft_time(&mutex.time_begin, timestamp()),
+			i, mutex.str[e_die]);			// need to keep the number of philo who died
+	i = -1;
+	while (++i < mutex.number_philo)
+		kill(pid[i], SIGKILL);
+	if (sem_close(s_death) < 0)
+	{
+		sem_unlink(S_FORK);	
+		sem_unlink(S_DEATH);
+		return(printf("Error : Failed to close the semaphore\n"), 1);
+	}
+	error(&mutex, pid);
+	sem_unlink(S_FORK);	
+	sem_unlink(S_DEATH);	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 21:14:35 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 13:02:21 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,8 @@ struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat)
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	if (rules->is_died != 1)
-	{
+	if (philo->is_dead == 0)
 		printf("%ld %d %s\n", ft_time(&rules->time_begin, time), philo->nb,
 			rules->str[etat]);
-	}
 	return (time);
-}
-
-void	ft_died(t_rules *rules, t_philo *philo)
-{
-	rules->is_died = 1;
-	printf("%ld %d %s\n", ft_time(&rules->time_begin, timestamp()), philo->nb,
-		rules->str[e_die]);
 }

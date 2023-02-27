@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 21:19:07 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 13:19:37 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 void	*check_death(void *arg)
 {
-	t_rules	*rules;
-	int		i;
+	t_thread_death	*death;
+	sem_t			*s_death;
 
-	rules = (t_rules *)arg;
-	while (rules->is_died != 0)
+	death = (t_thread_death *)arg;
+	s_death = sem_open(S_DEATH, O_EXCL);
+	if (s_death == SEM_FAILED)
 	{
-		usleep(500);
+		printf("Error : Failed to open the semaphore\n");
+		return (s_death);	//should kill all the philo
 	}
 	while (1)
 	{
-		i = 0;
-		while (i < rules->number_philo)
+		if (death->rules->time_die <= ft_time(&death->philo->last_meal,
+			timestamp()))
 		{
-			if (rules->time_die <= ft_time(&rules->philo->last_meal,
-				timestamp()))
-			{
-				rules->is_died = 1;
-				printf("%ld %d %s\n",ft_time(&rules->time_begin, timestamp()),
-					i + 1, rules->str[e_die]);
-				return (NULL);
-			}
-			i++;
+			// printf("meurt--------------%d\n", death->philo->nb);
+			death->philo->is_dead = 1;
+			sem_post(s_death);
+			sem_close(s_death);
+			return (death);
 		}
+		usleep(10);
 	}
 }

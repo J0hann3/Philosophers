@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:05 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:56:26 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ int	main(int argc, char **argv)
 	if (ft_init_semaphore(&mutex, &sem) == 1)
 		return (1);
 	sem.nb_philo = mutex.number_philo;
-	if (pthread_create(&p_check_meal, NULL, &check_meal, (void *)&sem) != 0)
+	if (mutex.number_eat != -1 && pthread_create(&p_check_meal, NULL, &check_meal, (void *)&sem) != 0)
 		return (printf("Error : Failed to create thread\n"), 1);
-	if (pthread_detach(p_check_meal) != 0)
+	if (mutex.number_eat != -1 && pthread_detach(p_check_meal) != 0)
 		return (1);
 	if (ft_create_process(&mutex, pid) <= 0)
 		return (0);

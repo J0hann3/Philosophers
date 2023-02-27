@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 20:48:20 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/27 20:55:56 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	*check_meal(void *arg)
 	t_semaphore	*sem;
 	int			i;
 
+	printf("test---------------\n");
 	sem = (t_semaphore *)arg;
 	i = 0;
 	while (i < sem->nb_philo)
@@ -49,9 +50,5 @@ void	*check_meal(void *arg)
 	//	Stop simulation
 	sem_wait(sem->mutex);
 	sem_post(sem->death);
-	
-	// sem_close(sem->meal);
-	// sem_close(sem->mutex);
-	// sem_close(sem->death);
 	return (NULL);
 }

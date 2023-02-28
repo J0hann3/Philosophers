@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 17:27:04 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:07:25 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	*check_death(void *arg)
 {
 	t_thread_death	*death;
-	
+
 	death = (t_thread_death *)arg;
 	while (1)
 	{
 		sem_wait(death->philo->mutex_meal);
 		if (death->rules->time_die <= ft_time(&death->philo->last_meal,
-			timestamp()))
+				timestamp()))
 		{
 			sem_post(death->philo->mutex_meal);
 			sem_wait(death->philo->mutex);
 			sem_post(death->philo->death);
-			printf("%ld %d %s\n",ft_time(&death->rules->time_begin, timestamp()),
-				death->philo->nb, death->rules->str[e_die]);
+			printf("%ld %d %s\n", ft_time(&death->rules->time_begin,
+					timestamp()), death->philo->nb, death->rules->str[e_die]);
 			sem_close(death->philo->death);
 			sem_close(death->philo->mutex);
 			sem_close(death->philo->mutex_meal);
@@ -50,11 +50,6 @@ void	*check_meal(void *arg)
 		sem_wait(sem->meal);
 		++i;
 	}
-	//	Stop simulation
-	// printf("test---------------\n");
-	// sem_wait(sem->mutex);
-	// printf("test---------------\n");
 	sem_post(sem->death);
-	// printf("test---------------\n");
 	return (NULL);
 }

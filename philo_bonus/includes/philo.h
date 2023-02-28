@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 17:21:50 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:14:21 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <signal.h>
-
 
 # define S_FORK "/fork"
 # define S_DEATH "/death"
@@ -81,12 +80,6 @@ typedef struct s_semaphore
 	sem_t			*fork;
 }	t_semaphore;
 
-// typedef struct s_time
-// {
-// 	time_t		tv_sec;		/* secondes */ long long
-// 	suseconds_t	tv_usec;	/* microsecondes */ long long
-// }	t_time;
-
 // Utils
 int				ft_atoi(const char *str);
 char			*ft_strdup(const char *s);
@@ -95,10 +88,14 @@ size_t			ft_strlen(const char *s);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_itoa(int n);
 
-int				fill_print(char **str);
 
 // Parsing
 int				parsing(int argc, char **argv, t_rules *mutex);
+
+//----- Init ------
+pid_t			*ft_init_malloc(t_rules *mutex);
+void			ft_init_semaphore(t_rules *rules, t_semaphore *sem, pid_t *pid);
+int				ft_create_process(t_rules *rules, pid_t *pid);
 
 // Action
 void			ft_eat(t_rules *rules, t_philo *philo);
@@ -106,22 +103,18 @@ void			ft_sleep(t_rules *rules, t_philo *philo);
 void			ft_think(t_rules *rules, t_philo *philo);
 void			ft_find_fork_eat(t_rules *rules, t_philo *philo);
 
+int				fill_print(char **str);
 void			infini_time(t_rules *rules, t_philo *philo);
 void			n_time(t_rules *rules, t_philo *philo);
 void			action_philo(t_rules *rules, t_philo *philo);
 long			ft_time(struct timeval *begin, struct timeval now);
 long			time_conv(struct timeval *time);
 struct timeval	timestamp(void);
-pid_t			*ft_init_malloc(t_rules *mutex);
 void			philosophers(t_rules *rules, int n_philo);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex, pid_t *pid, short boolean);
 void			*check_death(void *arg);
 void			*check_meal(void *arg);
-void			ft_init_semaphore(t_rules *rules, t_semaphore *sem, pid_t *pid);
-int				ft_create_process(t_rules *rules, pid_t *pid);
-int	ft_close_sem(t_semaphore *sem, t_rules *rules, pid_t *pid);
-
-
+int				ft_close_sem(t_semaphore *sem, t_rules *rules, pid_t *pid);
 
 #endif

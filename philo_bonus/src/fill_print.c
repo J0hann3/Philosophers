@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 15:41:10 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:51:23 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	fill_print(char **str)
 	str[4] = ft_strdup("died");
 	if (str[0] == NULL || str[1] == NULL || str[2] == NULL || str[3] == NULL
 		|| str[4] == NULL)
-	{
-		free_str(str);
 		return (1);
-	}
 	return (0);
 }
 

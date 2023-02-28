@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/27 20:36:41 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:40:35 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,12 @@ struct timeval	timestamp(void);
 pid_t			*ft_init_malloc(t_rules *mutex);
 void			philosophers(t_rules *rules, int n_philo);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
-void			error(t_rules *mutex, pid_t *pid);
+void			error(t_rules *mutex, pid_t *pid, short boolean);
 void			*check_death(void *arg);
 void			*check_meal(void *arg);
-int				ft_init_semaphore(t_rules *rules, t_semaphore *sem);
+void			ft_init_semaphore(t_rules *rules, t_semaphore *sem, pid_t *pid);
 int				ft_create_process(t_rules *rules, pid_t *pid);
+int	ft_close_sem(t_semaphore *sem, t_rules *rules, pid_t *pid);
 
 
 

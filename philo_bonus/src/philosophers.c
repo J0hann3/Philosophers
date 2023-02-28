@@ -6,17 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 17:32:35 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:38:19 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <sys/stat.h>
-
-// static void	init_philo()
-// {}
-
-
 
 void	philosophers(t_rules *rules, int n_philo)
 {
@@ -93,7 +87,7 @@ int	main(int argc, char **argv)
 
 	ft_init_semaphore(&mutex, &sem, pid);
 	sem.nb_philo = mutex.number_philo;
-	// ---- Thread Meal ------
+	
 	if (mutex.number_eat != -1 && pthread_create(&p_check_meal, NULL,
 			&check_meal, (void *)&sem) != 0)
 		return (printf("Error : Failed to create thread\n"), error(&mutex, pid, 0), 1);

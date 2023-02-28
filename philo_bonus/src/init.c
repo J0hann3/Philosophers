@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 16:59:54 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:36:13 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ int	ft_close_sem(t_semaphore *sem, t_rules *rules, pid_t *pid)
 
 void	error(t_rules *mutex, pid_t *pid, short boolean)
 {
+	char			*name_sem;
+	char			*name;
+	int				i;
+
 	if (boolean == 1)
 		free(mutex->str);
 	else
@@ -98,4 +102,14 @@ void	error(t_rules *mutex, pid_t *pid, short boolean)
 	sem_unlink(S_DEATH);
 	sem_unlink(S_MUTEX);
 	sem_unlink(S_MEAL);
+	i = 1;
+	while (i <= mutex->number_philo)
+	{
+		name = ft_itoa(i);
+		name_sem = ft_strjoin("/meal", name);
+		sem_unlink(name_sem);
+		free(name_sem);
+		free(name);
+		++i;
+	}
 }

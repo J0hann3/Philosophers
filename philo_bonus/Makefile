@@ -6,7 +6,7 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/02/28 16:37:16 by jvigny           ###   ########.fr        #
+#    Updated: 2023/02/28 17:22:02 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 SRC_LIST = action_philo.c	fill_print.c	ft_usleep.c	n_time.c	time.c \
 			free_str.c	ft_strdup.c	parsing.c \
-			ft_atoi.c	init.c	philosophers.c check_death.c
+			ft_atoi.c	init.c	philosophers.c check_death.c ft_strjoin.c \
+			ft_itoa.c
 
 SRC_DIR = ./src/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))

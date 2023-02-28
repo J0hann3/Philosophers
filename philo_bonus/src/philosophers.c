@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 16:42:24 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:32:35 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,32 @@
 // static void	init_philo()
 // {}
 
+
+
 void	philosophers(t_rules *rules, int n_philo)
 {
 	t_philo			philo;
 	t_thread_death	death;
+	char			*name_sem;
+	char			*name;
 
+	philo.nb = n_philo + 1;
+	name = ft_itoa(philo.nb);
+	name_sem = ft_strjoin("/meal", name);
+	sem_unlink(name_sem);
+	philo.mutex_meal = sem_open(name_sem, O_CREAT, 0644, 1);
+	free(name_sem);
+	free(name);
 	philo.meal = sem_open(S_MEAL, O_EXCL);
 	philo.sem = sem_open(S_FORK, O_EXCL);
 	philo.mutex = sem_open(S_MUTEX, O_EXCL);
 	philo.death = sem_open(S_DEATH, O_EXCL);
 	if (philo.meal == SEM_FAILED || philo.death == SEM_FAILED || philo.mutex == SEM_FAILED ||
-		philo.sem == SEM_FAILED)
+		philo.sem == SEM_FAILED || philo.mutex_meal == SEM_FAILED)
 	{
 		printf("Error : Failed to create the semaphore\n");
 		exit(EXIT_FAILURE);				//don't stop the other philo
 	}
-	philo.nb = n_philo + 1;
 	
 	philo.last_meal.tv_sec = rules->time_begin.tv_sec;
 	philo.last_meal.tv_usec= rules->time_begin.tv_usec;

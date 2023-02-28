@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 15:40:35 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:21:50 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philo
 {
 	int				nb;
 	sem_t			*sem;
+	sem_t			*mutex_meal;
 	sem_t			*mutex;
 	sem_t			*death;
 	sem_t			*meal;
@@ -91,6 +92,8 @@ int				ft_atoi(const char *str);
 char			*ft_strdup(const char *s);
 void			free_str(char **res);
 size_t			ft_strlen(const char *s);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_itoa(int n);
 
 int				fill_print(char **str);
 

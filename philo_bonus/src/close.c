@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:09:40 by jvigny            #+#    #+#             */
-/*   Updated: 2023/03/06 19:10:03 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/03/06 19:49:38 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	error(t_rules *mutex, pid_t *pid, short boolean)
 	{
 		name = ft_itoa(i);
 		name_sem = ft_strjoin("/meal", name);
-		sem_unlink(name_sem);
+		if (name_sem != NULL)
+			sem_unlink(name_sem);
 		free(name_sem);
 		free(name);
 		++i;

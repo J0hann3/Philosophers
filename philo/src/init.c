@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:44:06 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/03/06 19:19:53 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,21 @@ int	ft_create_thread(t_rules *mutex)
 	return (0);
 }
 
+int	ft_join_thread(t_rules *mutex)
+{
+	int	i;
+
+	i = 0;
+	while (i < mutex->number_philo)
+	{
+		if (pthread_join(mutex->philo_thread[i], NULL) != 0)
+			return (printf("Error : Failed to join thread\n"),
+				error(mutex), 1);
+		++i;
+	}
+	return (0);
+}
+
 void	ft_destroy(t_rules *mutex)
 {
 	int	i;
@@ -93,14 +108,6 @@ void	ft_destroy(t_rules *mutex)
 		printf("Error : Failed to destroy mutex\n");
 	if (pthread_mutex_destroy(&mutex->mutex_died) != 0)
 		printf("Error : Failed to destroy mutex\n");
-	free(mutex->mutex_fork);
-	free(mutex->philo_thread);
-	free(mutex->fork);
-	free_str(mutex->str);
-}
-
-void	error(t_rules *mutex)
-{
 	free(mutex->mutex_fork);
 	free(mutex->philo_thread);
 	free(mutex->fork);

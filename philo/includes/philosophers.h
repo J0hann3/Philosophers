@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:43:53 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/03/06 19:20:04 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int				ft_create_thread(t_rules *mutex);
 void			*philosophers(void	*p);
 struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat);
 void			error(t_rules *mutex);
-// void			*check_death(void *arg);
+int				ft_join_thread(t_rules *mutex);
 
 #endif

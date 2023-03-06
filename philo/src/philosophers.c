@@ -6,11 +6,19 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 16:47:57 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/03/06 19:19:20 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	error(t_rules *mutex)
+{
+	free(mutex->mutex_fork);
+	free(mutex->philo_thread);
+	free(mutex->fork);
+	free_str(mutex->str);
+}
 
 static void	init_philo(t_rules *philo_rules, t_philo *philo)
 {
@@ -49,15 +57,10 @@ void	*philosophers(void	*args)
 
 int	main(int argc, char **argv)
 {
-	int				i;
 	t_rules			mutex;
 
-	i = 0;
 	if (parsing(argc, argv, &mutex) == -1)
-	{
-		printf("Error : Incorrect arguments\n");
-		return (1);
-	}
+		return (printf("Error : Incorrect arguments\n"), 1);
 	if (mutex.number_eat == 0)
 		return (0);
 	mutex.index = 0;
@@ -75,15 +78,7 @@ int	main(int argc, char **argv)
 	gettimeofday(&mutex.time_begin, NULL);
 	if (ft_create_thread(&mutex) == 1)
 		return (error(&mutex), 1);
-	while (i < mutex.number_philo)
-	{
-		if (pthread_join(mutex.philo_thread[i], NULL) != 0)
-		{
-			printf("Error : Failed to join thread\n");
-			return (error(&mutex), 1);
-		}
-		++i;
-	}
+	ft_join_thread(&mutex);
 	ft_destroy(&mutex);
 	return (0);
 }

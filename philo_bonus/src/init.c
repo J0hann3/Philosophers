@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:40:52 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 18:10:18 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/03/06 19:09:56 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,30 @@ void	ft_init_semaphore(t_rules *rules, t_semaphore *sem, pid_t *pid)
 	}
 }
 
+void	ft_open_sem(t_philo *philo)
+{
+	char	*name_sem;
+	char	*name;
+
+	name = ft_itoa(philo->nb);
+	name_sem = ft_strjoin("/meal", name);
+	sem_unlink(name_sem);
+	philo->mutex_meal = sem_open(name_sem, O_CREAT, 0644, 1);
+	free(name_sem);
+	free(name);
+	philo->meal = sem_open(S_MEAL, O_EXCL);
+	philo->sem = sem_open(S_FORK, O_EXCL);
+	philo->mutex = sem_open(S_MUTEX, O_EXCL);
+	philo->death = sem_open(S_DEATH, O_EXCL);
+	if (philo->meal == SEM_FAILED || philo->death == SEM_FAILED
+		|| philo->mutex == SEM_FAILED || philo->sem == SEM_FAILED
+		|| philo->mutex_meal == SEM_FAILED)
+	{
+		error_thread(philo, "Error : Failed to create the semaphore\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 int	ft_create_process(t_rules *rules, pid_t *pid)
 {
 	int		i;
@@ -73,49 +97,4 @@ int	ft_create_process(t_rules *rules, pid_t *pid)
 		++i;
 	}
 	return (1);
-}
-
-int	ft_close_sem(t_semaphore *sem, t_rules *rules, pid_t *pid)
-{
-	if (sem_close(sem->fork) < 0)
-		return (printf("Error : Failed to close the semaphore\n"),
-			error(rules, pid, 0), 1);
-	if (sem_close(sem->meal) < 0)
-		return (printf("Error : Failed to close the semaphore\n"),
-			error(rules, pid, 0), 1);
-	if (sem_close(sem->mutex) < 0)
-		return (printf("Error : Failed to close the semaphore\n"),
-			error(rules, pid, 0), 1);
-	if (sem_close(sem->death) < 0)
-		return (printf("Error : Failed to close the semaphore\n"),
-			error(rules, pid, 0), 1);
-	error(rules, pid, 0);
-	return (0);
-}
-
-void	error(t_rules *mutex, pid_t *pid, short boolean)
-{
-	char			*name_sem;
-	char			*name;
-	int				i;
-
-	if (boolean == 1)
-		free(mutex->str);
-	else
-		free_str(mutex->str);
-	free(pid);
-	sem_unlink(S_FORK);
-	sem_unlink(S_DEATH);
-	sem_unlink(S_MUTEX);
-	sem_unlink(S_MEAL);
-	i = 1;
-	while (i <= mutex->number_philo)
-	{
-		name = ft_itoa(i);
-		name_sem = ft_strjoin("/meal", name);
-		sem_unlink(name_sem);
-		free(name_sem);
-		free(name);
-		++i;
-	}
 }

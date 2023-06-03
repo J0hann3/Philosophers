@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/03/06 19:08:31 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/06/03 19:17:57 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <signal.h>
+# include <stdbool.h>
 
 # define S_FORK "/fork"
 # define S_DEATH "/death"

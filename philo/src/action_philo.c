@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:36:53 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:38:15 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/06/03 18:52:50 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	find_fork(t_rules *rules, t_philo *philo, int fork)
 			return (-1);
 		}
 		pthread_mutex_unlock(&rules->mutex_died);
+		usleep(100);
 		pthread_mutex_lock(&rules->mutex_fork[fork]);
 	}
 	rules->fork[fork] = 1;

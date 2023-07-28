@@ -6,11 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 20:13:31 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/24 12:26:55 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 15:09:49 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 
 long	ft_time(struct timeval *begin, struct timeval now)
 {

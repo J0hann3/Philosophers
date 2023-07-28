@@ -6,11 +6,12 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:33:55 by jvigny            #+#    #+#             */
-/*   Updated: 2023/06/03 18:52:41 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 15:09:55 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
+
 
 void	n_time(t_rules *rules, t_philo *philo)
 {

@@ -6,11 +6,12 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 18:04:11 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/13 14:26:38 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 15:10:04 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
+
 
 size_t	ft_strlen(const char *s)
 {

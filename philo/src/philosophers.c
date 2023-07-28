@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 15:09:41 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 16:53:48 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void	init_philo(t_rules *philo_rules, t_philo *philo)
 		philo->fork_2 = philo->nb - 1;
 	}
 	if (philo_rules->number_philo % 2 == 0)
-		philo->last_action = philo->nb % 2 + 1;
+		philo->last_action = philo->nb % 2;
 	else
-		philo->last_action = philo->nb % 3 + 1;
+		philo->last_action = philo->nb % 3;
 }
 
 void	*philosophers(void	*args)

@@ -94,3 +94,5 @@ TEST MANDOTORY PART
 4 600 -5 200			should error and not run (no crashing)
 4 600 200 -5			should error and not run (no crashing)
 4 600 200 200 -5		should error and not run (no crashing)
+
+bonus 199 800 300 100

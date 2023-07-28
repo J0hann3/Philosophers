@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 14:17:04 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:05:49 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	philosophers(t_rules *rules, int n_philo)
 	philo.last_meal.tv_sec = rules->time_begin.tv_sec;
 	philo.last_meal.tv_usec = rules->time_begin.tv_usec;
 	if (rules->number_philo % 2 == 0)
-		philo.last_action = philo.nb % 2 + 1;
+		philo.last_action = philo.nb % 2;
 	else
-		philo.last_action = philo.nb % 3 + 1;
+		philo.last_action = philo.nb % 3;
 	death.philo = &philo;
 	death.rules = rules;
 	if (pthread_create(&death.thread, NULL, &check_death, (void *)&death) != 0)

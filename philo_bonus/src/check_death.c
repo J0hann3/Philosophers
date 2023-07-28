@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 18:07:25 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:53:40 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*check_death(void *arg)
 			return (death);
 		}
 		sem_post(death->philo->mutex_meal);
-		usleep(10);
+		usleep(100);
 	}
 }
 

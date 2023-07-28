@@ -6,12 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 12:49:18 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 15:10:09 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:57:42 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
 
 void	free_str(char **res)
 {

@@ -6,12 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:03:36 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 15:10:01 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:57:47 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
 
 void	ft_usleep(struct timeval now, long time, t_philo *philo, t_rules *rules)
 {

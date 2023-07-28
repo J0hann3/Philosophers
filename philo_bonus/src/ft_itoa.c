@@ -6,11 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:51:30 by jvigny            #+#    #+#             */
-/*   Updated: 2023/02/28 17:21:34 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:55:56 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 static char	*write_nb(char *res, int n)
 {

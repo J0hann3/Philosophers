@@ -6,12 +6,11 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:04:29 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 15:09:52 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:57:51 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
 
 int	parsing(int argc, char **argv, t_rules *mutex)
 {

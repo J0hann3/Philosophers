@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 16:15:03 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/06/03 19:09:30 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 
 enum e_print
 {
-	e_sleep = 0,
+	e_fork = 0,
 	e_eat,
+	e_sleep,
 	e_think,
-	e_fork,
 	e_die,
 	e_eat_think,
 };

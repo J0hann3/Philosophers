@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 15:10:11 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/28 16:15:16 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int	fill_print(char **str)
 {
-	str[0] = ft_strdup("has taken a fork");
+	str[0] = ft_strdup("is sleeping");
 	str[1] = ft_strdup("is eating");
-	str[2] = ft_strdup("is sleeping");
-	str[3] = ft_strdup("is thinking");
+	str[2] = ft_strdup("is thinking");
+	str[3] = ft_strdup("has taken a fork");
 	str[4] = ft_strdup("died");
 	if (str[0] == NULL || str[1] == NULL || str[2] == NULL || str[3] == NULL
 		|| str[4] == NULL)

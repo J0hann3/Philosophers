@@ -94,3 +94,14 @@ TEST MANDOTORY PART
 4 600 -5 200			should error and not run (no crashing)
 4 600 200 -5			should error and not run (no crashing)
 4 600 200 200 -5		should error and not run (no crashing)
+
+
+"7" "800" "200" "500" "7"	should not die
+199 610 200 200 10 
+199 610 200 80 10
+
+50 CPU -> 302%
+
+199 610 200 80
+
+overflow ?

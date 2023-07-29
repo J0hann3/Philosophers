@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:06:14 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 17:53:40 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/29 16:26:24 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	*check_death(void *arg)
 			sem_post(death->philo->mutex_meal);
 			sem_wait(death->philo->mutex);
 			sem_post(death->philo->death);
-			printf("%ld %d %s\n", ft_time(&death->rules->time_begin,
+			fprintf(fd, "%ld %d %s\n", ft_time(&death->rules->time_begin,
 					timestamp()), death->philo->nb, death->rules->str[e_die]);
+			fflush(fd);
+			fclose(fd);
 			sem_close(death->philo->death);
 			sem_close(death->philo->mutex);
 			sem_close(death->philo->mutex_meal);

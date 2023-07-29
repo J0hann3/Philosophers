@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 17:05:09 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/29 16:25:28 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define S_MUTEX "/mutex"
 # define S_MEAL "/meal"
 
+extern FILE *fd;
+
 enum e_print
 {
 	e_sleep = 0,
@@ -41,7 +43,7 @@ enum e_print
 	e_die,
 };
 
-typedef struct s_philo
+typedef struct s_pinthilo
 {
 	int				nb;
 	sem_t			*sem;

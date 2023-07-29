@@ -6,11 +6,13 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:00:48 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 17:05:49 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/29 16:26:04 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+FILE *fd;
 
 int	philosophers(t_rules *rules, int n_philo)
 {
@@ -45,6 +47,7 @@ int	main(int argc, char **argv)
 	t_rules		rules;
 	t_semaphore	sem;
 
+	fd = fopen("test.txt", "wr");
 	if (parsing(argc, argv, &rules) == -1)
 		return (printf("Error : Incorrect arguments\n"), 1);
 	if (rules.number_philo == 0 || rules.number_eat == 0)
@@ -64,5 +67,6 @@ int	main(int argc, char **argv)
 		return (0);
 	sem_wait(sem.death);
 	kill_process(&rules, pid, p_check_meal, &sem);
+	fclose(fd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:33 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/29 17:07:41 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/29 17:26:59 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,8 @@ struct timeval	ft_printf(t_rules *rules, t_philo *philo, enum e_print etat)
 
 	gettimeofday(&time, NULL);
 	sem_wait(philo->mutex);
-#if DEBUG
-	fprintf(fd,"%ld %d %s\n", ft_time(&rules->time_begin, time), philo->nb,
-		rules->str[etat]);
-	fflush(fd);
-#else
 	printf("%ld %d %s\n", ft_time(&rules->time_begin, time), philo->nb,
 		rules->str[etat]);
-#endif
 	sem_post(philo->mutex);
 	return (time);
 }

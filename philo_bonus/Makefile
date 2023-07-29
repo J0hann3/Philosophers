@@ -6,16 +6,14 @@
 #    By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 18:39:31 by jvigny            #+#    #+#              #
-#    Updated: 2023/03/06 19:34:44 by jvigny           ###   ########.fr        #
+#    Updated: 2023/07/29 17:28:37 by jvigny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_bonus
-NAME_DEBUG = philo_debug
 
 CC = gcc
-CFLAGS = -Wall -Wextra #-Werror
-DEBUG = -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 LFLAGS = -lpthread
 INCLUDES = -I$(HEADERS_DIR)
 
@@ -36,11 +34,6 @@ OBJ_DIR = ./obj/
 OBJ_LIST = $(patsubst %.c, %.o, $(SRC_LIST))
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_LIST))
 
-OBJ_DIR_DEBUG = ./obj_debug/
-OBJ_LIST_DEBUG = $(patsubst %.c, %.o, $(SRC_LIST))
-OBJ_DEBUG = $(addprefix $(OBJ_DIR_DEBUG), $(OBJ_LIST_DEBUG))
-
-
 all:	$(NAME)
 
 $(NAME):	$(OBJ_DIR) $(OBJ)
@@ -51,17 +44,6 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(HEADERS)
 	
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-	
-debug:	$(NAME_DEBUG)
-
-$(NAME_DEBUG):	$(OBJ_DIR_DEBUG) $(OBJ_DEBUG)
-	$(CC) $(INCLUDES) $(DEBUG) $(LFLAGS) $(OBJ_DEBUG) -o $(NAME_DEBUG)
-
-$(OBJ_DIR_DEBUG)%.o:	$(SRC_DIR)%.c $(HEADERS)
-	$(CC) $(DEBUG) -c $(INCLUDES) $< -o $@
-
-$(OBJ_DIR_DEBUG):
-	mkdir -p $(OBJ_DIR_DEBUG)	
 
 clean:
 	rm -rf $(OBJ_DIR)

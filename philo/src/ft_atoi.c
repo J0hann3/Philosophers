@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 13:32:21 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/28 17:57:44 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/29 14:23:14 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_atoi(const char *str)
 {
-	int		res;
+	long	res;
 	int		i;
 	bool	error;
 
@@ -30,6 +30,8 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + str[i++] - '0';
+		if (res > __INT_MAX__)
+			return (-1);
 		error = false;
 	}
 	if (str[i] != '\0' || error == true)

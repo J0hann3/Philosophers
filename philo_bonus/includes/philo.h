@@ -6,7 +6,7 @@
 /*   By: jvigny <jvigny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:01:01 by jvigny            #+#    #+#             */
-/*   Updated: 2023/07/29 16:25:28 by jvigny           ###   ########.fr       */
+/*   Updated: 2023/07/29 17:08:44 by jvigny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@
 # define S_MUTEX "/mutex"
 # define S_MEAL "/meal"
 
+# define DEBUG 0
+
+# if DEBUG
 extern FILE *fd;
+# endif
 
 enum e_print
 {

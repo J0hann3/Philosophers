@@ -1,5 +1,7 @@
 # Philosophers
 
+[Subject Philosophers Project 42](philosophers.pdf)
+
 THREAD
 
 Different types of threads:

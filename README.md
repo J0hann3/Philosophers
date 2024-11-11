@@ -1,7 +1,17 @@
-# Philosophers
+<h1 align=center>💻 Philosophers</h1>
+<p align="center">
+  <img src="img/philosophers.png?raw=true"/>
+</p>
+
+## About
+>In this project, you will learn the basics of threading a process.
+>You will see how to create threads and you will discover mutexes
 
 [Subject Philosophers Project 42](philosophers.pdf)
 
+## Setup
+
+## New Notion
 THREAD
 
 Different types of threads:
